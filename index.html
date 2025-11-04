@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Odyssey - Astronomy Website Mockup</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Castoro&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="main.js" defer></script>
+<style>
+        /* Main container */
+        .site-header {
+            grid-area: top-section;
+            background-color: rgb(255, 255, 255);
+            display: grid;
+            grid-template-columns: 100%;
+            grid-template-rows: 80px 80px;
+        }
+
+        /* Top section */
+        .top-bar {
+            background-color: #000;
+            background-image: url(images/stars.PNG);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            align-items: center;
+        }
+
+        .top-bar img {
+            height: 80px;
+            padding-left: 90px;
+        }
+
+        .search-field {
+            width: 300px;
+            height: 35px;
+            border-radius: 5px;
+            padding: 5px;
+            border: none;
+            margin-right: 25px;
+        }
+
+        .top-bar-right {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            align-items: center;
+            padding-right: 100px;
+        }
+
+        .icon-group {
+            display: grid;
+            grid-template-columns: repeat(2 , 50px);
+            grid-template-rows: 40px;
+            align-items: center;
+        }
+
+        .icon-group img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .lang-select select {
+            width: 150px;
+            height: 35px;
+            background-color: rgba(240, 248, 255, 0);
+            color: #fff;
+            border: none;
+        }
+
+        .lang-select option {
+            color: #000;
+        }
+
+        /* Bottom section */
+        .bottom-bar {
+    background-color: #ffffff; /* fond blanc */
+    display: flex;
+    justify-content: center;  /* centrer horizontalement */
+    align-items: center;      /* centrer verticalement */
+    height: 80px;
+    box-shadow: 2px 2px 13px 5px rgba(54, 54, 54, 0.53);
+}
+
+.bottom-bar ul {
+    list-style: none;
+    display: flex;
+    gap: 50px; /* espace entre les liens */
+    margin: 0;
+    padding: 0;
+}
+
+.bottom-bar ul li a {
+    text-decoration: none;
+    color: #0b0b0b;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s;
+    border:4PX ;
+}
+
+.bottom-bar ul li a:hover,
+.bottom-bar ul li a.active {
+    color: #FFFFFF; /* couleur accent sur hover ou page active */
+    background-color: #000;
+}
+
+    </style>
+
+  </head>
+<body>
+
+
+         
+  <!-- 🌌 Navbar -->
+ <header class="site-header">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <img src="images/logo.png" alt="logo">
+            </div>
+            <div class="top-bar-right">
+                <div>
+                    <input type="search" class="search-field" placeholder="Search space...">
+                </div>
+                <div class="lang-select">
+                    <select name="language">
+                        <option value="en">English</option>
+                        <option value="fr">Français</option>
+                        <option value="ar">العربية</option>
+                    </select>
+                </div>
+               
+            </div>
+        </div>
+        <div class="bottom-bar">
+           
+           <ul>
+          <li><a href="index.html"class="active">Accueil</a></li>
+          <li><a href="missions.html">Missions</a></li>
+          <li><a href="planet.html">Planets</a></li>
+          <li><a href="about.html" >About us</a></li>
+          <li><a href="contact_us.html">Contact</a></li>
+        </ul>
+        </div>
+
+ </header>
+
+    <section class="hero-section">
+  <div class="hero-content">
+    <h1>Space Odyssey</h1>
+    <p>Explore the wonders of the universe. <br> Discover stars, planets, and galaxies like never before.</p>
+    <a href="https://science.nasa.gov/resource/space-odyssey/" target="_blank" class="btn">Explore Space</a>
+  </div>
+</section>
+
+
+    <main class="container">
+
+        
+<section class="feature-cards">
+    <div class="card dark-bg">
+        <h2>Discover the Universe</h2>
+        <p>Get a glimpse into the wonders of the cosmos with our curated content on astronomical discoveries, celestial events, and fascinating space facts. Start your journey into the mysteries of the universe right here.</p>
+        <a href="https://www.nasa.gov/topics/universe" target="_blank" class="btn-secondary">Learn More</a>
+    </div>
+    <div class="card dark-bg">
+        <h2>Updated on Space News</h2>
+        <p>Keep up with the latest news in the world of space and astronomy. From recent discoveries to upcoming celestial events, stay informed with the most current updates and highlights.</p>
+        <a href="https://www.nasa.gov/news" target="_blank" class="btn-secondary">Learn More</a>
+    </div>
+    <div class="card dark-bg">
+        <h2>Learn from Experts</h2>
+        <p style="font-family: 'Plus Jakarta Sans', sans-serif;">Gain insights from astronomy experts with our informative articles, and guides. Whether you're a beginner or an enthusiast, expand your knowledge with easy-to-understand resources tailored for all levels.</p>
+        <a href="https://www.nasa.gov/about" target="_blank" class="btn-secondary">Learn More</a>
+    </div>
+</section>
+
+
+        
+    <section class="timer-section">
+    <p class="intro-text" style="font-family:'Castoro', Courier, monospace;">
+        Dive into the fascinating world of astronomy with our curated content, expert insights, and the latest space news. Whether you're a curious learner or a seasoned enthusiast, explore our resources to deepen your understanding of the cosmos and stay connected with the ever-expanding universe.
+
+    <div class="time-box">
+        <div class="time-label"><i class="fas fa-clock"></i> Total time in space</div>
+        <div class="time-display">
+            <span id="days">352 D</span>
+            <span id="hours">5 H</span>
+            <span id="minutes">49 M</span>
+            <span id="seconds">20 S</span>
+        </div>
+    </div>
+</section>
+
+ <section class="astronomy-section">
+  <div class="astronomy-image-card">
+    <div class="gallery-container">
+      <img id="main-image" src="images/hom.png" alt="Asteroid" class="main-image">
+      <button id="next-image" class="btn-s"><i class="fas fa-arrow-right"></i></button>
+
+    </div>
+  </div>
+  <div class="astronomy-text-card dark-bg">
+    <div class="astronomy-text-card-container">
+      <h2>What Is Astronomy?</h2>
+      <p>
+        Astronomy is the scientific study of celestial objects like stars, planets, galaxies, and phenomena that occur outside of Earth's atmosphere. It uses physics, chemistry, and mathematics to investigate their origin, evolution, theoretical models, and advanced technologies to uncover the fundamental principles governing the cosmos.
+      </p>
+      <a href="https://www.nasa.gov/subject/6881/astronomy" target="_blank" class="btn-s">Learn More</a>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="image-of-the-day-section">
+            <div class="text-side">
+                <h1 class="section-title-small">Image Of The Day</h1>
+                <h3>Earth's Crest Over the Lunar Horizon</h3>
+                <p class="nasa-description">
+                    This view of the Earth's crest over the lunar horizon was taken on July 20, 1971, during the **Apollo 15** lunar landing mission. Astronauts David Scott, Alfred Worden, and James Irwin **launched** from NASA's Kennedy Space Center in Florida aboard a Saturn V launch vehicle.
+                </p>
+                <p class="nasa-description">
+                    Designed to explore the Moon over longer periods, greater ranges, and with more instruments for the collection of scientific data than before, Apollo 15 included the introduction of a $40 million lunar roving vehicle (LRV) that reached a top speed of 10 mph (16 kph) across the Moon's surface.
+                </p>
+                <p class="image-credit">Image Credit: NASA</p>
+                <a href="#" class="btn btn-read-more" style="border: 1px solid black;">Read More <span class="arrow">›</span></a>
+            </div>
+      <div class="image-side">
+    <img src="images/Frame 239197.png" alt="Black hole image" class="black-hole-image" id="maiImage">
+    <button class="view-image-btn" id="nextImageBtn">
+         View Image<i class="fas fa-arrow-right"></i>
+    </button>
+</div>
+
+
+
+        </section>
+      <section class="past">
+  <div class="card vision">
+    <h3>Our Vision</h3>
+    <p>To ignite curiosity and foster a deeper understanding of the universe, inspiring people to explore the mysteries of space and our place within it.</p>
+  </div>
+
+  <div class="card mission">
+    <h3>Our Mission</h3>
+    <p>To deliver captivating, easy-to-understand astronomy content that educates, inspires, and encourages everyone to explore the wonders of the cosmos..</p>
+  </div>
+</section>
+
+
+  <main class="box">
+  <div class="section-titre">
+    <h1>Our Community</h1>
+  </div>
+
+  <section class="vision-grid">
+    <figure class="vision" data-name="Orion Vega" data-info="Astrophysicist passionate about deep space exploration.">
+      <div class="img"><img src="images/v1.png" alt="Orion Vega" /></div>
+      <figcaption class="name">Orion Vega</figcaption>
+    </figure>
+
+    <figure class="vision" data-name="Cassius Hale" data-info="Engineer focused on satellite communications and orbit systems.">
+      <div class="img"><img src="images/v3.png" alt="Cassius Hale" /></div>
+      <figcaption class="name">Cassius Hale</figcaption>
+    </figure>
+
+    <figure class="vision" data-name="Lyra Andromeda" data-info="Astronomer studying galaxy formation and exoplanets.">
+      <div class="img"><img src="images/v4.png" alt="Lyra Andromeda" /></div>
+      <figcaption class="name">Lyra Andromeda</figcaption>
+    </figure>
+
+    <figure class="vision" data-name="Leo Armstrong" data-info="Mission specialist and educator in aerospace science.">
+      <div class="img"><img src="images/v5.png" alt="Leo Armstrong" /></div>
+      <figcaption class="name">Leo Armstrong</figcaption>
+    </figure>
+  </section>
+</main>
+
+<!-- Popup Modal -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="modalName">vgcc</h2>
+    <p id="modalInfo">vgvgcgcgc</p>
+  </div>
+</div>
+
+
+    <section class="features" aria-label="grow with us">
+  <div class="feature">
+    <div class="icon"><i class="fa-solid fa-book-open"></i></div>
+    <h4>Publishing</h4>
+    <p>Share your knowledge and insights through our platform, where your voice can inspire and inform others..</p>
+  </div>
+
+  <div class="feature">
+    <div class="icon"><i class="fa-solid fa-graduation-cap"></i></div>
+    <h4>Education</h4>
+    <p>Access learning resources and workshops designed to expand your skills and foster personal growth.</p>
+  </div>
+
+  <div class="feature">
+    <div class="icon"><i class="fa-solid fa-handshake"></i></div>
+    <h4>Career</h4>
+    <p>Take the next step in your career with opportunities for development, mentorship, and professional networking.</p>
+  </div>
+
+  <div class="feature">
+    <div class="icon"><i class="fa-solid fa-gears"></i></div>
+    <h4>Meeting</h4>
+    <p>Connect and collaborate through interactive events and meetings that drive innovation and community.</p>
+  </div>
+</section>
+
+  <section class="stats-band">
+  <div class="stats-left">
+    <div class="text">
+      <h3>Astronomy Communities For Everyone</h3>
+      <p>Create a friendly space where enthusiasts connect, collaborate, and explore the universe together.</p>
+    </div>
+  </div>
+<div class="stats-right">
+  <div class="stat-row">
+    <div class="stat">
+      <div class="lbl">Members</div>
+      <div class="num" data-target="5000">0</div>
+      
+      
+      
+    </div>
+    <div class="stat">
+      <div class="lbl">Projects</div>
+      <div class="num" data-target="10000">0</div>
+      
+      
+      
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="lbl">Years</div>
+      <div class="num" data-target="12">0</div>
+      
+     
+    </div>
+    <div class="stat">
+      <div class="lbl">Employees</div>
+        <div class="num" data-target="200">0</div>
+      
+    </div>
+  </div>
+</div>
+
+</section>
+
+
+
+ 
+
+        
+    </main>
+ 
+</body>
+<footer>
+      <div class="background-footer">
+        <div class="footer-top">
+          <div class="footer-column">
+            <h3>Legal</h3>
+            <ul>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Cookies</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Information</h3>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Support</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="about.html">About us</a></li>
+              <li><a href="missions.html">Careers</a></li>
+              <li><a href="contact_us.html">Contact us</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column subscribe">
+            <h3>Subscribe</h3>
+            <input type="email" placeholder="Email address" />
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="footer-bottom">
+          <div class="footer-logo">
+            <a href="#"><img src="images/logo.png" alt="logo" /></a>
+          </div>
+
+          <div class="footer-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Cookies</a>
+          </div>
+
+        
+              <div class="social-icons">
+  <a href="https://www.linkedin.com" target="_blank" class="social-link">
+    <i class="fab fa-linkedin"></i>
+  </a>
+  <a href="https://www.facebook.com" target="_blank" class="social-link">
+    <i class="fab fa-facebook"></i>
+  </a>
+  <a href="https://twitter.com" target="_blank" class="social-link">
+    <i class="fab fa-twitter"></i>
+  </a>
+</div>
+</div>
+      </div>
+    </footer>
+</html>

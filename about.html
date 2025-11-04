@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Space Odyssey</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;700&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Poltawski+Nowy:wght@400;600;700&display=swap" rel="stylesheet">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+<style>
+        /* Main container */
+        .site-header {
+            grid-area: top-section;
+            background-color: rgb(255, 255, 255);
+            display: grid;
+            grid-template-columns: 100%;
+            grid-template-rows: 80px 80px;
+        }
+
+        /* Top section */
+        .top-bar {
+            background-color: #000;
+            background-image: url(images/stars.PNG);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            align-items: center;
+        }
+
+        .top-bar img {
+            height: 80px;
+            padding-left: 90px;
+        }
+
+        .search-field {
+            width: 300px;
+            height: 35px;
+            border-radius: 5px;
+            padding: 5px;
+            border: none;
+            margin-right: 25px;
+        }
+
+        .top-bar-right {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            align-items: center;
+            padding-right: 100px;
+        }
+
+        .icon-group {
+            display: grid;
+            grid-template-columns: repeat(2 , 50px);
+            grid-template-rows: 40px;
+            align-items: center;
+        }
+
+        .icon-group img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .lang-select select {
+            width: 150px;
+            height: 35px;
+            background-color: rgba(240, 248, 255, 0);
+            color: #fff;
+            border: none;
+        }
+
+        .lang-select option {
+            color: #000;
+        }
+
+        /* Bottom section */
+        .bottom-bar {
+    background-color: #ffffff; /* fond blanc */
+    display: flex;
+    justify-content: center;  /* centrer horizontalement */
+    align-items: center;      /* centrer verticalement */
+    height: 80px;
+    box-shadow: 2px 2px 13px 5px rgba(54, 54, 54, 0.53);
+}
+
+.bottom-bar ul {
+    list-style: none;
+    display: flex;
+    gap: 50px; /* espace entre les liens */
+    margin: 0;
+    padding: 0;
+}
+
+.bottom-bar ul li a {
+    text-decoration: none;
+    color: #0b0b0b;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s;
+    border:4PX ;
+}
+
+.bottom-bar ul li a:hover,
+.bottom-bar ul li a.active {
+    color: #FFFFFF; /* couleur accent sur hover ou page active */
+    background-color: #000;
+}
+
+    </style>
+
+  </head>
+<body>
+
+
+         
+  <!-- 🌌 Navbar -->
+ <header class="site-header">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <img src="images/logo.png" alt="logo">
+            </div>
+            <div class="top-bar-right">
+                <div>
+                    <input type="search" class="search-field" placeholder="Search space...">
+                </div>
+                <div class="lang-select">
+                    <select name="language">
+                        <option value="en">English</option>
+                        <option value="fr">Français</option>
+                        <option value="ar">العربية</option>
+                    </select>
+                </div>
+               
+            </div>
+        </div>
+        <div class="bottom-bar">
+           
+           <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="missions.html">Missions</a></li>
+          <li><a href="planet.html">Planets</a></li>
+          <li><a href="about.html" class="active">About us</a></li>
+          <li><a href="contact_us.html">Contact</a></li>
+        </ul>
+        </div>
+
+ </header>
+  <!-- 🌠 Hero Section -->
+<section class="about-section">
+  <div class="video-background">
+    <video autoplay muted loop playsinline>
+      <source src="VIDEOS/ssstik.io_@galaxclic_1760659860298.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="about-banner">
+    <h1>About us</h1>
+      <p class="animated-text">Explore the universe, inspire minds.</p>
+  </div>
+</section>
+
+
+<section class="who-section">
+  <div class="who-container">
+    
+    <div class="who-text">
+      <h2>Who’s Space Odyssey ?</h2>
+      <p>
+        At AstroTech Studio, we are passionate about space and science.
+        Our mission is to make space exploration accessible to everyone
+        through modern and interactive educational platforms.
+        We believe that curiosity and knowledge are the driving forces
+        of human progress.
+      </p>
+    </div>
+    <div class="who-image">
+      <img src="images/Slice 1.png" alt="Rocket Launch">
+    </div>
+  </div>
+</section>
+<body>
+  <section class="objectives-section">
+    <div class="objectives-container">
+      <h2 class="objectives-title">Objectifs du site</h2>
+       <p class="space-intro">
+  The Space Odyssey website was designed to inspire curious young minds to discover the wonders of the cosmos. Thanks to our interactive pages, they can:
+</p>
+
+<div class="objective-item reverse">
+  <iframe 
+    width="400" 
+    height="225" 
+    src="https://www.youtube.com/embed/KNoJBAxoTk0?autoplay=1&controls=0&mute=1&rel=0&modestbranding=1" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="autoplay; encrypted-media; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+ <div class="objective-box">
+      <p>Explorez les planètes du système solaire et découvrez les caractéristiques uniques de chaque monde. De la surface brûlante de Mercure aux anneaux glacés de Saturne, apprenez-en davantage sur leurs atmosphères, compositions et lunes fascinantes. Partez pour un voyage interactif et élargissez vos connaissances sur le cosmos..</p>
+      </div>
+</div>
+
+
+
+      
+      <div class="objective-item">
+    
+   <iframe 
+  width="400" 
+  height="225" 
+  src="https://www.youtube.com/embed/zEFwWCfSyjo?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1&loop=1&playlist=zEFwWCfSyjo" 
+  title="YouTube video player" 
+  frameborder="0" 
+  allow="autoplay; encrypted-media; picture-in-picture" 
+  allowfullscreen>
+</iframe>
+
+        
+       <div class="objective-box">
+      <p>
+Découvrez les missions spatiales historiques et récentes qui ont marqué l’humanité. 
+De l’alunissage d’Apollo 11 aux explorations modernes de Mars, chaque mission représente 
+un pas de plus vers la compréhension de notre univers. Apprenez comment les avancées 
+technologiques et la collaboration internationale ont permis de repousser les limites 
+de l’exploration spatiale et d’ouvrir la voie à de nouvelles découvertes.
+</p>
+
+      </div>
+
+      </div>
+
+    <div class="objective-item reverse">
+    <iframe 
+    width="400" 
+    height="225" 
+    src="https://www.youtube.com/embed/2GxeMJGP8hM?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&loop=1&playlist=2GxeMJGP8hM" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="autoplay; encrypted-media; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+       <div class="objective-box">
+      <p>
+    Comprenez les avancées technologiques qui rendent l’exploration spatiale possible. 
+    Fusées, satellites et robots d’exploration travaillent ensemble pour repousser les limites de l’univers.
+  </p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+<footer>
+      <div class="background-footer">
+        <div class="footer-top">
+          <div class="footer-column">
+            <h3>Legal</h3>
+            <ul>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Cookies</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Information</h3>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Support</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="about.html">About us</a></li>
+              <li><a href="missions.html">Careers</a></li>
+              <li><a href="contact_us.html">Contact us</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column subscribe">
+            <h3>Subscribe</h3>
+            <input type="email" placeholder="Email address" />
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="footer-bottom">
+          <div class="footer-logo">
+            <a href="#"><img src="images/logo.png" alt="logo" /></a>
+          </div>
+
+          <div class="footer-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Cookies</a>
+          </div>
+
+        
+              <div class="social-icons">
+  <a href="https://www.linkedin.com" target="_blank" class="social-link">
+    <i class="fab fa-linkedin"></i>
+  </a>
+  <a href="https://www.facebook.com" target="_blank" class="social-link">
+    <i class="fab fa-facebook"></i>
+  </a>
+  <a href="https://twitter.com" target="_blank" class="social-link">
+    <i class="fab fa-twitter"></i>
+  </a>
+</div>
+</div>
+      </div>
+    </footer>
+</body>
+
+
+
+
+  

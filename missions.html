@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Space Odyssey</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;700&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Poltawski+Nowy:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+<style>
+        /* Main container */
+        .site-header {
+            grid-area: top-section;
+            background-color: rgb(255, 255, 255);
+            display: grid;
+            grid-template-columns: 100%;
+            grid-template-rows: 80px 80px;
+        }
+
+        /* Top section */
+        .top-bar {
+            background-color: #000;
+            background-image: url(images/stars.PNG);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            align-items: center;
+        }
+
+        .top-bar img {
+            height: 80px;
+            padding-left: 90px;
+        }
+
+        .search-field {
+            width: 300px;
+            height: 35px;
+            border-radius: 5px;
+            padding: 5px;
+            border: none;
+            margin-right: 25px;
+        }
+
+        .top-bar-right {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            align-items: center;
+            padding-right: 100px;
+        }
+
+        .icon-group {
+            display: grid;
+            grid-template-columns: repeat(2 , 50px);
+            grid-template-rows: 40px;
+            align-items: center;
+        }
+
+        .icon-group img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .lang-select select {
+            width: 150px;
+            height: 35px;
+            background-color: rgba(240, 248, 255, 0);
+            color: #fff;
+            border: none;
+        }
+
+        .lang-select option {
+            color: #000;
+        }
+
+        /* Bottom section */
+        .bottom-bar {
+    background-color: #ffffff; /* fond blanc */
+    display: flex;
+    justify-content: center;  /* centrer horizontalement */
+    align-items: center;      /* centrer verticalement */
+    height: 80px;
+    box-shadow: 2px 2px 13px 5px rgba(54, 54, 54, 0.53);
+}
+
+.bottom-bar ul {
+    list-style: none;
+    display: flex;
+    gap: 50px; /* espace entre les liens */
+    margin: 0;
+    padding: 0;
+}
+
+.bottom-bar ul li a {
+    text-decoration: none;
+    color: #0b0b0b;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s;
+    border:4PX ;
+}
+
+.bottom-bar ul li a:hover,
+.bottom-bar ul li a.active {
+    color: #FFFFFF; /* couleur accent sur hover ou page active */
+    background-color: #000;
+}
+
+    </style>
+
+  </head>
+<body>
+
+
+         
+  <!-- 🌌 Navbar -->
+ <header class="site-header">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <img src="images/logo.png" alt="logo">
+            </div>
+            <div class="top-bar-right">
+                <div>
+                    <input type="search" class="search-field" placeholder="Search space...">
+                </div>
+                <div class="lang-select">
+                    <select name="language">
+                        <option value="en">English</option>
+                        <option value="fr">Français</option>
+                        <option value="ar">العربية</option>
+                    </select>
+                </div>
+               
+            </div>
+        </div>
+        <div class="bottom-bar">
+           
+           <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="missions.html"class="active">Missions</a></li>
+          <li><a href="planet.html">Planets</a></li>
+          <li><a href="about.html" >About us</a></li>
+          <li><a href="contact_us.html">Contact</a></li>
+        </ul>
+        </div>
+
+    </header>
+
+ <body>
+<section class="hero-section" style="height:100vh; background-image:url('images/missionnnnn.png'); background-size:cover; background-position:center;">
+  <div class="hero-content">
+    <h1 class="hero-title" >Our Mission</h1>
+    <p class="animated-text">
+      We aim to inspire the next generation of explorers through science
+      and space education.
+    </p>
+    <a href="https://www.nasa.gov/missions/" class="btn-primary">Learn More</a>
+  </div>
+</section>
+
+
+  <div class="mockup">
+    <aside class="card" aria-label="Curiosity card">
+  <div class="image-wrap">
+    <iframe 
+      width="320" 
+      height="240" 
+      src="https://www.youtube.com/embed/P4boyXQuUIw?autoplay=1&mute=1&loop=1&playlist=P4boyXQuUIw" 
+      title="Curiosity Rover Video" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="card-body">
+    <div class="card-title">Curiosity</div>
+    <div class="card-sub">Explore Mars' surface</div>
+
+    <div class="meta">
+      <div>Launch date: <strong class="meta-strong">November 26, 2011</strong></div>
+      
+      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
+    </div>
+  </div>
+</aside>
+
+
+    <main class="right">
+      <h1 class="title-big" >Curiosity</h1>
+
+      <section class="desc-card">
+        <div class="desc-head">
+          <div class="desc-icon">🤖</div>
+          <div>
+            <p class="desc-paragraph">
+              Curiosity is a robotic rover sent by NASA to explore the surface of Mars. It was launched in 2011 and landed on Mars in August 2012 inside the Gale Crater. The rover carries scientific instruments to study the planet's climate and geology, and search for signs that the planet could have supported microbial life.
+            </p>
+
+            
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="mockup">
+    <aside class="card" aria-label="APOLLO 11">
+  <div class="image-wrap">
+   <iframe 
+  width="320" 
+  height="240" 
+  src="https://www.youtube.com/embed/SgOh6PlVoRw?autoplay=1&mute=1&loop=1&playlist=SgOh6PlVoRw" 
+  title="APOLLO 11 Rover Video" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+  allowfullscreen>
+</iframe>
+
+  </div>
+
+  <div class="card-body">
+    <div class="card-title">APOLLO 11</div>
+    <div class="card-sub">Explore Mars' surface</div>
+
+    <div class="meta">
+      <div>Launch date: <strong class="meta-strong">November 26, 2011</strong></div>
+      
+      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
+    </div>
+  </div>
+</aside>
+
+
+    <main class="right">
+      <h1 class="title-big" >APOL 11</h1>
+
+      <section class="desc-card">
+        <div class="desc-head">
+          <div class="desc-icon">🚀</div>
+          <div>
+          <p class="desc-paragraph"   >
+ Apollo 11, mission de la NASA, a été le premier atterrissage humain sur la Lune. Lancée le 16 juillet 1969, elle a aluni le 20 juillet 1969. Les astronautes étaient Neil Armstrong (premier homme à marcher sur la Lune), Buzz Aldrin (deuxième) et Michael Collins (resté en orbite). La mission a marqué un tournant dans l’exploration spatiale en collectant des roches lunaires, en prenant des photos et en réalisant des expériences.
+</p>
+
+
+            
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="mockup">
+    <aside class="card" aria-label="Artemis I">
+  <div class="image-wrap">
+<iframe 
+    width="320" 
+    height="240" 
+    src="https://www.youtube.com/embed/CMLD0Lp0JBg?autoplay=1&mute=1" 
+    title="Curiosity Rover Live" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+
+
+  </div>
+
+  <div class="card-body">
+    <div class="card-title">Artemis I</div>
+    <div class="card-sub">Explore Mars' surface</div>
+
+    <div class="meta">
+      <div>Launch date: <strong class="meta-strong">November 16, 2022</strong></div>
+      
+      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
+    </div>
+  </div>
+</aside>
+
+
+    <main class="right">
+      <h1 class="title-big" >Artemis I</h1>
+
+      <section class="desc-card">
+        <div class="desc-head">
+          <div class="desc-icon">🛰️</div>
+          <div>
+            <p class="desc-paragraph">
+              Artemis I est une mission de la NASA lancée le 16 novembre 2022. Sans équipage, elle a testé la fusée SLS et le vaisseau Orion en effectuant un vol autour de la Lune pour préparer le retour des humains sur la Lune et, plus tard, l’exploration de Mars.
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="mockup">
+    <aside class="card" aria-label="JWST">
+  <div class="image-wrap">
+   <iframe 
+    width="320" 
+    height="240" 
+    src="https://www.youtube.com/embed/6VqG3Jazrfs?autoplay=1&mute=1&loop=1&playlist=6VqG3Jazrfs" 
+    title="Curiosity Rover Video" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+
+  </div>
+
+  <div class="card-body">
+    <div class="card-title">JWST</div>
+    <div class="card-sub">Explore Mars' surface</div>
+
+    <div class="meta">
+      <div>Launch date: <strong class="meta-strong"> December 25, 2021</strong></div>
+      
+      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
+    </div>
+  </div>
+</aside>
+
+
+    <main class="right">
+      <h1 class="title-big" >JWST</h1>
+
+      <section class="desc-card">
+        <div class="desc-head">
+          <div class="desc-icon">🌌</div>
+          <div>
+            <p class="desc-paragraph">
+              Le télescope spatial James Webb (JWST), lancé par la NASA le 25 décembre 2021, observe l’univers en lumière infrarouge pour étudier les galaxies lointaines, les étoiles et les exoplanètes.
+Plus puissant que Hubble, il possède un grand miroir et des instruments très sensibles.
+Il permet de comprendre la formation des étoiles et des planètes et d’explorer l’univers primitif.
+            </p>
+            
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="mockup">
+    <aside class="card" aria-label="Voyager 1">
+  <div class="image-wrap">
+  <iframe 
+    width="320" 
+    height="240" 
+    src="https://www.youtube.com/embed/qtCBI3WNTdI?autoplay=1&mute=1&loop=1&playlist=qtCBI3WNTdI" 
+    title="Curiosity Rover Video" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+
+  </div>
+
+  <div class="card-body">
+    <div class="card-title">Voyager 1</div>
+    <div class="card-sub">Explore Mars' surface</div>
+
+    <div class="meta">
+      <div>Launch date: <strong class="meta-strong">September 5, 1977</strong></div>
+      
+      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
+    </div>
+  </div>
+</aside>
+
+
+    <main class="right">
+      <h1 class="title-big" style="font-size: 14px;">Voyager1</h1>
+
+      <section class="desc-card">
+        <div class="desc-head">
+          <div class="desc-icon">🔭</div>
+          <div>
+            <p class="desc-paragraph">
+               Voyager 1 est une sonde de la NASA lancée en 1977. Elle a exploré Jupiter et Saturne, puis a continué son voyage dans l’espace interstellaire. C’est aujourd’hui l’objet humain le plus éloigné de la Terre, portant un disque d’or avec des sons et images de notre planète.
+            </p>
+            
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="mockup">
+    <aside class="card" aria-label="Perseverance">
+  <div class="image-wrap">
+   <iframe 
+    width="320" 
+    height="240" 
+    src="https://www.youtube.com/embed/h8J7v43mEB4?autoplay=1&mute=1&loop=1&playlist=h8J7v43mEB4" 
+    title="Curiosity Rover Video" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+
+  </div>
+
+  <div class="card-body">
+    <div class="card-title">Perseverance</div>
+    <div class="card-sub">Explore Mars' surface</div>
+
+    <div class="meta">
+      <div>Launch date: <strong class="meta-strong">July 30, 2020</strong></div>
+      
+      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
+    </div>
+  </div>
+</aside>
+
+
+    <main class="right">
+      <h1 class="title-big" style="text-align: left;">Persever</h1>
+
+      <section class="desc-card">
+        <div class="desc-head">
+          <div class="desc-icon">🤖</div>
+          <div>
+            <p class="desc-paragraph">
+              Perseverance est un rover de la NASA sur Mars, arrivé en février 2021. Il cherche des signes de vie ancienne, collecte des échantillons, et étudie le climat et la géologie. Il transporte aussi Ingenuity, un petit hélicoptère, et envoie données et images sur Terre.
+            </p>
+
+            
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="mockup">
+    <aside class="card" aria-label="Curiosity card">
+  <div class="image-wrap">
+   <iframe 
+    width="320" 
+    height="240" 
+    src="https://www.youtube.com/embed/20MFL9L8KEc?autoplay=1&mute=1&loop=1&playlist=20MFL9L8KEc" 
+    title="Curiosity Rover Video" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+
+  </div>
+
+  <div class="card-body">
+    <div class="card-title">Rosetta</div>
+    <div class="card-sub">Explore Mars' surface</div>
+
+    <div class="meta">
+      <div>Launch date: <strong class="meta-strong">March 2, 2004</strong></div>
+      
+      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
+    </div>
+  </div>
+</aside>
+
+
+    <main class="right">
+      <h1 class="title-big" >Rosetta</h1>
+
+      <section class="desc-card">
+        <div class="desc-head">
+          <div class="desc-icon">☄️</div>
+          <div>
+            <p class="desc-paragraph">
+             Rosetta est une sonde de l’ESA lancée en 2004 pour étudier la comète 67P. En 2014, elle a déposé Philae, le premier atterrissage sur une comète, et a étudié sa composition et activité, aidant à comprendre l’origine de l’eau et des molécules organiques sur Terre
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="mockup">
+    <aside class="card" aria-label="P.S.Probe">
+  <div class="image-wrap">
+    <iframe 
+    width="320" 
+    height="240" 
+    src="https://www.youtube.com/embed/1PKhD7YB5-s?autoplay=1&mute=1&loop=1&playlist=1PKhD7YB5-s" 
+    title="Curiosity Rover Video" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+
+
+  </div>
+
+  <div class="card-body">
+    <div class="card-title">P.S.Probe</div>
+    <div class="card-sub">Explore Mars' surface</div>
+
+    <div class="meta">
+      <div>Launch date: <strong class="meta-strong"> August 12, 201</strong></div>
+      
+      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
+    </div>
+  </div>
+</aside>
+
+
+    <main class="right">
+      <h1 class="title-big" >P.S.Probe</h1>
+
+      <section class="desc-card">
+        <div class="desc-head">
+          <div class="desc-icon">🤖</div>
+          <div>
+            <p class="desc-paragraph">
+              Parker Solar Probe est une sonde de la NASA lancée en 2018 pour étudier le Soleil. Elle mesure le vent solaire et la couronne solaire, et collecte des données pour prévoir les tempêtes solaires pouvant affecter la Terre.
+            </p>
+
+            
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="mockup">
+    <aside class="card" aria-label="Curiosity card">
+  <div class="image-wrap">
+<iframe 
+    width="320" 
+    height="240" 
+    src="https://www.youtube.com/embed/4OoQ9nmkL1U?autoplay=1&mute=1&loop=1&playlist=4OoQ9nmkL1U" 
+    title="Hubble: The Great Space Telescope" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+
+
+  </div>
+
+  <div class="card-body">
+    <div class="card-title">H.S.T</div>
+    <div class="card-sub">Explore Mars' surface</div>
+
+    <div class="meta">
+      <div>Launch date: <strong class="meta-strong">April 24, 1990</strong></div>
+      
+      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
+    </div>
+  </div>
+</aside>
+
+
+    <main class="right">
+      <h1 class="title-big" >H.S.T</h1>
+
+      <section class="desc-card">
+        <div class="desc-head">
+          <div class="desc-icon">🛰️</div>
+          <div>
+            <p class="desc-paragraph">
+              Hubble est un télescope spatial de la NASA lancé en 1990. Il observe l’univers depuis l’espace, capture des images incroyables, et aide à étudier les galaxies, exoplanètes et trous noirs.
+
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="mockup">
+    <aside class="card" aria-label="Curiosity card">
+  <div class="image-wrap">
+  <iframe 
+    width="320" 
+    height="240" 
+    src="https://www.youtube.com/embed/FWFKk2yNzRM?autoplay=1&mute=1&loop=1&playlist=FWFKk2yNzRM" 
+    title="Curiosity Rover Video" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+
+  </div>
+
+  <div class="card-body">
+    <div class="card-title">Tianwe.n1</div>
+    <div class="card-sub">Explore Mars' surface</div>
+
+    <div class="meta">
+      <div>Launch date: <strong class="meta-strong">November 26, 2011</strong></div>
+      
+      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
+    </div>
+  </div>
+</aside>
+
+
+    <main class="right">
+      <h1 class="title-big" >Tianwe.n1</h1>
+
+      <section class="desc-card">
+        <div class="desc-head">
+          <div class="desc-icon"></div>
+          <div>
+            <p class="desc-paragraph">
+              Tianwen-1 est la première mission interplanétaire indépendante de la Chine vers Mars, lancée le 23 juillet 2020 par la CNSA. Son nom, qui signifie « Questions au Ciel », reflète la quête de connaissance et d’exploration scientifique de la Chine.
+            </p>
+
+            
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <footer>
+      <div class="background-footer">
+        <div class="footer-top">
+          <div class="footer-column">
+            <h3>Legal</h3>
+            <ul>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Cookies</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Information</h3>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Support</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="about.html">About us</a></li>
+              <li><a href="missions.html">Careers</a></li>
+              <li><a href="contact_us.html">Contact us</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column subscribe">
+            <h3>Subscribe</h3>
+            <input type="email" placeholder="Email address" />
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="footer-bottom">
+          <div class="footer-logo">
+            <a href="#"><img src="images/logo.png" alt="logo" /></a>
+          </div>
+
+          <div class="footer-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Cookies</a>
+          </div>
+
+      
+              <div class="social-icons">
+  <a href="https://www.linkedin.com" target="_blank" class="social-link">
+    <i class="fab fa-linkedin"></i>
+  </a>
+  <a href="https://www.facebook.com" target="_blank" class="social-link">
+    <i class="fab fa-facebook"></i>
+  </a>
+  <a href="https://twitter.com" target="_blank" class="social-link">
+    <i class="fab fa-twitter"></i>
+  </a>
+</div>
+</div>
+      </div>
+    </footer>
+</body>
+
+
+
+
+  
