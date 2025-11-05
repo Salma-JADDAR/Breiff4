@@ -12,6 +12,7 @@
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 />
+<script src="main.js" defer></script>
 <style>
         /* Main container */
         .site-header {
@@ -111,6 +112,147 @@
     color: #FFFFFF; /* couleur accent sur hover ou page active */
     background-color: #000;
 }
+.filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  
+}
+
+/* Input de recherche */
+#searchInput {
+  width: 300px; /* sghir */
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+   background-color: black;
+  color: white;
+  margin-bottom: 5px; /* pour le décoller un peu des selects */
+}
+
+#searchInput:focus {
+  border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0,123,255,0.5);
+}
+
+/* Selects */
+#agenceFilter, #anneeFilter, #typeFilter {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  background-color: black;
+  color: white;
+  appearance: none; /* supprime la flèche par défaut */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  cursor: pointer;
+  width: 180px;
+}
+#agenceFilter, #anneeFilter, #typeFilter {
+    border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0,123,255,0.5);
+}
+
+/* Options */
+#agenceFilter option,
+#anneeFilter option,
+#typeFilter option {
+  background-color: black;
+  color: white;
+}
+
+/* Responsive pour mobile */
+@media (max-width: 600px) {
+  .filters {
+    flex-direction: column;
+    align-items: center;
+  }
+  #searchInput, #agenceFilter, #anneeFilter, #typeFilter {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+   }
+/* Modals (Add/Edit & View) */
+.mod {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6); 
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  z-index: 9999;          
+}
+
+.mod-content  {
+  background-color:white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+  color: #000;
+  text-align: center;
+}
+
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 25px;
+  cursor: pointer;
+  color: #333;
+}
+
+.mission-item .action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.mission-item .action-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.mission-item .action-buttons .edit-btn {
+  background-color:black;
+  color: white;
+}
+
+.mission-item .action-buttons .edit-btn:hover {
+  background-color:#007bff;
+}
+
+.mission-item .action-buttons .delete-btn {
+  background-color: black;
+  color: white;
+}
+
+.mission-item .action-buttons .delete-btn:hover {
+  background-color: #a71d2a;
+}
 
     </style>
 
@@ -163,455 +305,472 @@
     <a href="https://www.nasa.gov/missions/" class="btn-primary">Learn More</a>
   </div>
 </section>
+<button id="addMissionBtn" style="margin:20px;">➕ Ajouter Mission</button>
+<div class="filters">
+  <input type="text" id="searchInput" placeholder="Rechercher par nom, agence ou date">
+  <select id="agenceFilter"><option  value="">Toutes les agences</option></select>
+  <select id="anneeFilter"><option value="">Toutes les années</option></select>
+  <select id="typeFilter"><option value="">Tous les types</option></select> 
+</div>
 
+<section class="missions-page">
 
-  <div class="mockup">
-    <aside class="card" aria-label="Curiosity card">
-  <div class="image-wrap">
-    <iframe 
-      width="320" 
-      height="240" 
-      src="https://www.youtube.com/embed/P4boyXQuUIw?autoplay=1&mute=1&loop=1&playlist=P4boyXQuUIw" 
-      title="Curiosity Rover Video" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen>
-    </iframe>
-  </div>
+  <div class="missions-grid" id="missionsGrid"></div>
+</section>
 
-  <div class="card-body">
-    <div class="card-title">Curiosity</div>
-    <div class="card-sub">Explore Mars' surface</div>
-
-    <div class="meta">
-      <div>Launch date: <strong class="meta-strong">November 26, 2011</strong></div>
-      
-      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
+<div id="missionMod" class="mod" style="display:none;">
+    <div class="mod-content">
+      <span id="closeMissionMod" class="close-btn">&times;</span>
+      <h3 id="modalTitle">Nouvelle Mission</h3>
+      <form id="missionForm">
+        <input type="text" id="missionName" placeholder="Nom" required><br>
+        <input type="text" id="missionAgency" placeholder="Agence" required><br>
+        <input type="text" id="missionDate" placeholder="Date" required><br>
+        <input type="text" id="missionType" placeholder="Type" required><br>
+        <textarea id="missionDesc" placeholder="Description"></textarea><br>
+        <button type="submit">Enregistrer</button>
+      </form>
     </div>
   </div>
-</aside>
+  <div id="messageBox" style="position:fixed; top:20px; left:50%; transform:translateX(-50%); background-color:#ff4d4f; color:white; padding:10px 20px; border-radius:5px; display:none; z-index:1000;"></div>
 
-
-    <main class="right">
-      <h1 class="title-big" >Curiosity</h1>
-
-      <section class="desc-card">
-        <div class="desc-head">
-          <div class="desc-icon">🤖</div>
-          <div>
-            <p class="desc-paragraph">
-              Curiosity is a robotic rover sent by NASA to explore the surface of Mars. It was launched in 2011 and landed on Mars in August 2012 inside the Gale Crater. The rover carries scientific instruments to study the planet's climate and geology, and search for signs that the planet could have supported microbial life.
-            </p>
-
-            
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-  <div class="mockup">
-    <aside class="card" aria-label="APOLLO 11">
-  <div class="image-wrap">
-   <iframe 
-  width="320" 
-  height="240" 
-  src="https://www.youtube.com/embed/SgOh6PlVoRw?autoplay=1&mute=1&loop=1&playlist=SgOh6PlVoRw" 
-  title="APOLLO 11 Rover Video" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-  allowfullscreen>
-</iframe>
-
-  </div>
-
-  <div class="card-body">
-    <div class="card-title">APOLLO 11</div>
-    <div class="card-sub">Explore Mars' surface</div>
-
-    <div class="meta">
-      <div>Launch date: <strong class="meta-strong">November 26, 2011</strong></div>
-      
-      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
+<!-- Modal -->
+<div id="missionModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="closeMissionModal" class="close-btn">&times;</span>
+      <h3 id="modalTitleView"></h3>
+      <p id="modalDescriptionView"></p>
     </div>
   </div>
-</aside>
+
+<script>
+  
+const missions = [
+  {
+    "name": "Apollo 11",
+    "agency": "NASA",
+    "date": "16 Juillet 1969",
+    "description": "Première mission lunaire habitée",
+    "type": "Exploration lunaire",
+    "images": ["images/applo1.PNG","images/appolo2.PNG","images/appolo3.PNG","images/appolo6.PNG"]
+  },
+  {
+    "name": "Curiosity",
+    "agency": "NASA",
+    "date": "26 Novembre 2011",
+    "description": "Curiosity explore Mars depuis 2012 pour rechercher des traces de vie passée.",
+    "type": "Exploration planétaire",
+    "images": ["images/Ca.PNG","images/Ca1.PNG","images/Ca2.PNG","images/Ca3.PNG"]
+  },
+  {
+    "name": "Artemis I",
+    "agency": "NASA",
+    "date": "16 Novembre 2022",
+    "description": "Artemis I est la première mission du programme Artemis pour retourner sur la Lune.",
+    "type": "Exploration lunaire",
+    "images": ["images/ar.PNG","images/ai1.PNG","images/ai2.PNG","images/ia3.PNG"]
+  },
+  {
+    "name": "James Webb",
+    "agency": "NASA / ESA",
+    "date": "25 Décembre 2021",
+    "description": "Le télescope spatial James Webb observe l'univers dans l'infrarouge pour étudier les premières galaxies.",
+    "type": "Télescopes spatiaux",
+    "images": ["images/jem.PNG","images/43.PNG","images/41.PNG","images/42.PNG"]
+  },
+  {
+    "name": "Hubble",
+    "agency": "NASA / ESA",
+    "date": "24 Avril 1990",
+    "description": "Hubble est un télescope spatial qui observe l'univers depuis 1990.",
+    "type": "Télescopes spatiaux",
+    "images": ["images/H.PNG","images/51.PNG","images/52.PNG","images/53.PNG"]
+  },
+  {
+    "name": "Rosetta",
+    "agency": "ESA",
+    "date": "2 Mars 2004",
+    "description": "Rosetta a étudié la comète 67P et a largué le module Philae.",
+    "type": "Comètes/Astéroïdes",
+    "images": ["images/RO.PNG","images/61.PNG","images/62.PNG","images/63.PNG"]
+  },
+  {
+    "name": "Voyager 1",
+    "agency": "NASA",
+    "date": "5 Septembre 1977",
+    "description": "Voyager 1 explore les confins du système solaire et l'espace interstellaire.",
+    "type": "Exploration planétaire",
+    "images": ["images/V11.PNG","images/71.PNG","images/72.PNG","images/73.PNG"]
+  },
+  {
+    "name": "Voyager 2",
+    "agency": "NASA",
+    "date": "20 Août 1977",
+    "description": "Voyager 2 explore les planètes extérieures et le milieu interstellaire.",
+    "type": "Exploration planétaire",
+    "images": ["images/V22.PNG","images/81.PNG","images/82.PNG","images/83.PNG"]
+  },
+  {
+    "name": "Juno",
+    "agency": "NASA",
+    "date": "5 Août 2011",
+    "description": "Juno orbite autour de Jupiter pour étudier son atmosphère et son champ magnétique.",
+    "type": "Exploration planétaire",
+    "images": ["images/JJ.PNG","images/91.PNG","images/92.PNG","images/93.PNG"]
+  },
+  {
+    "name": "Kepler",
+    "agency": "NASA",
+    "date": "7 Mars 2009",
+    "description": "Kepler a découvert des milliers de planètes extrasolaires dans notre galaxie.",
+    "type": "Exploration planétaire",
+    "images": ["images/K.PNG","images/101.PNG","images/102.PNG","images/103.PNG"]
+  },
+  {
+    "name": "New Horizons",
+    "agency": "NASA",
+    "date": "19 Janvier 2006",
+    "description": "New Horizons a survolé Pluton et la ceinture de Kuiper.",
+    "type": "Exploration planétaire",
+    "images": ["images/PS.PNG","images/111.PNG","images/112.PNG","images/113.PNG"]
+  },
+  {
+    "name": "ISS",
+    "agency": "NASA / Roscosmos / ESA",
+    "date": "1998",
+    "description": "International Space Station, laboratoire orbital en coopération internationale.",
+    "type": "Satellites/Station orbitale",
+    "images": ["images/SS.PNG","images/121.PNG","images/122.PNG","images/123.PNG"]
+  },
+  {
+    "name": "Perseverance",
+    "agency": "NASA",
+    "date": "30 Juillet 2020",
+    "description": "Mars 2020, avec le rover Perseverance, explore la surface de Mars.",
+    "type": "Exploration planétaire",
+    "images": ["images/PP.PNG","images/131.PNG","images/132.PNG","images/133.PNG"]
+  },
+  {
+    "name": "Dragon Crew",
+    "agency": "SpaceX / NASA",
+    "date": "30 Mai 2020",
+    "description": "Dragon Crew transporte les astronautes vers l'ISS.",
+    "type": "Satellites/Station orbitale",
+    "images": ["images/D.PNG","images/141.PNG","images/142.PNG","images/143.PNG"]
+  },
+  {
+    "name": "Tianwen-1",
+    "agency": "CNSA",
+    "date": "23 Juillet 2020",
+    "description": "Tianwen-1 explore Mars avec le rover Zhurong.",
+    "type": "Exploration planétaire",
+    "images": ["images/15.PNG","images/151.PNG","images/152.PNG","images/153.PNG"]
+  },
+  {
+    "name": "Hayabusa2",
+    "agency": "JAXA",
+    "date": "3 Décembre 2014",
+    "description": "Hayabusa2 a étudié et ramené des échantillons de l'astéroïde Ryugu.",
+    "type": "Comètes/Astéroïdes",
+    "images": ["images/KKK.PNG","images/161.PNG","images/162.PNG","images/163.PNG"]
+  },
+  {
+    "name": "ExoMars TGO",
+    "agency": "ESA / Roscosmos",
+    "date": "14 Mars 2016",
+    "description": "ExoMars Trace Gas Orbiter étudie l'atmosphère martienne et la recherche de gaz trace.",
+    "type": "Exploration planétaire",
+    "images": ["images/17.PNG","images/171.PNG","images/172.PNG","images/173.PNG"]
+  },
+  {
+    "name": "Parker Solar Probe",
+    "agency": "NASA",
+    "date": "12 Août 2018",
+    "description": "Parker Solar Probe étudie le Soleil de très près.",
+    "type": "Missions solaires",
+    "images": ["images/PARKER.PNG","images/181.PNG","images/182.PNG","images/183.PNG"]
+  },
+  {
+    "name": "OSIRIS-REx",
+    "agency": "NASA",
+    "date": "8 Septembre 2016",
+    "description": "OSIRIS-REx a collecté des échantillons de l'astéroïde Bennu et les a ramenés sur Terre.",
+    "type": "Comètes/Astéroïdes",
+    "images": ["images/18.PNG","images/191.PNG","images/192.PNG","images/193.PNG"]
+  },
+  {
+    "name": "Chang'e 4",
+    "agency": "CNSA",
+    "date": "7 Décembre 2018",
+    "description": "Chang'e 4 est la première mission à alunir sur la face cachée de la Lune.",
+    "type": "Exploration lunaire",
+    "images": ["images/20.PNG","images/201.PNG","images/202.PNG","images/203.PNG"]
+  },
+  {
+    "name": "Able 1",
+    "agency": "NASA",
+    "date": "11 Août 1958",
+    "description": "Able 1 (ou Pioneer 1) était une mission américaine de la NASA visant à tester le lancement d'un satellite lunaire. Elle a été lancée le 11 août 1958, mais n'a pas atteint la Lune.",
+    "type": "Exploration lunaire",
+    "images": ["images/21.PNG","images/211.PNG","images/212.PNG","images/213.PNG"]
+  }
+];
 
 
-    <main class="right">
-      <h1 class="title-big" >APOL 11</h1>
+// --- Références DOM ---
+  const container=document.getElementById("missionsGrid");
+  const searchInput=document.getElementById("searchInput");
+  const filterAgency=document.getElementById("agenceFilter");
+  const filterYear=document.getElementById("anneeFilter");
+  const filterType=document.getElementById("typeFilter");
+  const missionMod=document.getElementById("missionMod");
+  const missionModal=document.getElementById("missionModal");
+  const missionForm=document.getElementById("missionForm");
+  const nameInput=document.getElementById("missionName");
+  const agencyInput=document.getElementById("missionAgency");
+  const dateInput=document.getElementById("missionDate");
+  const typeInput=document.getElementById("missionType");
+  const descInput=document.getElementById("missionDesc");
+  let editingIndex=null;
 
-      <section class="desc-card">
-        <div class="desc-head">
-          <div class="desc-icon">🚀</div>
-          <div>
-          <p class="desc-paragraph"   >
- Apollo 11, mission de la NASA, a été le premier atterrissage humain sur la Lune. Lancée le 16 juillet 1969, elle a aluni le 20 juillet 1969. Les astronautes étaient Neil Armstrong (premier homme à marcher sur la Lune), Buzz Aldrin (deuxième) et Michael Collins (resté en orbite). La mission a marqué un tournant dans l’exploration spatiale en collectant des roches lunaires, en prenant des photos et en réalisant des expériences.
-</p>
+// --- Peupler les filtres ---
+function populateFilters() {
+  const agencies = [...new Set(missions.map(m => m.agency))];
+  agencies.forEach(a => {
+    const opt = document.createElement("option");
+    opt.value = a;
+    opt.textContent = a;
+    filterAgency.appendChild(opt);
+  });
 
+  const years = [...new Set(missions.map(m => m.date.match(/\d{4}/)?.[0]).filter(y => y))];
+  years.sort((a,b) => b-a).forEach(y => {
+    const opt = document.createElement("option");
+    opt.value = y;
+    opt.textContent = y;
+    filterYear.appendChild(opt);
+  });
 
-            
-          </div>
-        </div>
-      </section>
-    </main>
+  const types = [...new Set(missions.map(m => m.type))];
+  types.forEach(t => {
+    const opt = document.createElement("option");
+    opt.value = t;
+    opt.textContent = t;
+    filterType.appendChild(opt);
+  });
+}
+
+// --- Affichage des missions ---
+function displayMissions(list) {
+  container.innerHTML = "";
+  list.forEach((m, index) => {
+    const div = document.createElement("div");
+    div.classList.add("mission-item");
+
+    // Galerie
+    let galleryHTML = `<div class="mission-gallery" data-index="${index}">`;
+    m.images.forEach((img, i) => {
+      galleryHTML += `<img src="${img}" class="${i === 0 ? 'active' : ''}" alt="${m.name}">`;
+    });
+    galleryHTML += `<button class="prev">&#10094;</button><button class="next">&#10095;</button></div>`;
+
+   div.innerHTML = `
+  ${galleryHTML}
+  <h3>${m.name}</h3>
+  <p><strong>Agence:</strong> ${m.agency}</p>
+  <p><strong>Date:</strong> ${m.date}</p>
+  <div class="action-buttons">
+    <button class="edit-btn" title="Editer"><i class="fas fa-edit"></i> Edit</button>
+    <button class="delete-btn" title="Supprimer"><i class="fas fa-trash-alt"></i> Supprimer</button>
   </div>
-  <div class="mockup">
-    <aside class="card" aria-label="Artemis I">
-  <div class="image-wrap">
-<iframe 
-    width="320" 
-    height="240" 
-    src="https://www.youtube.com/embed/CMLD0Lp0JBg?autoplay=1&mute=1" 
-    title="Curiosity Rover Live" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
+`;
+
+    container.appendChild(div);
+   div.querySelector(".edit-btn").onclick=(e)=>{
+        e.stopPropagation();
+        editingIndex=index;
+        nameInput.value=m.name;
+        agencyInput.value=m.agency;
+        dateInput.value=m.date;
+        typeInput.value=m.type;
+        descInput.value=m.description;
+        document.getElementById("modalTitle").textContent="Modifier Mission";
+        missionMod.style.display="flex";
+      };
+     // Delete
+  div.querySelector(".delete-btn").onclick = (e) => {
+    e.stopPropagation();
+    if(index >= 0 && index < missions.length){
+        if(confirm(`Voulez-vous vraiment supprimer "${missions[index].name}" ?`)){
+            missions.splice(index, 1);
+            applyCombinedFilters();
+            showMessage("Suppression réussie !", "success");
+        }
+    } else {
+        showMessage("Mission introuvable !", "error");
+    }
+};
+
+    
+    // Modal
+ // Modal view
+div.addEventListener("click", () => {
+  const modal = document.getElementById("missionModal");
+  document.getElementById("modalTitleView").textContent = m.name;
+  document.getElementById("modalDescriptionView").textContent = m.description;
+  modal.style.display = "block";
+});
+
+  });
+
+  // Navigation images
+  container.querySelectorAll(".mission-gallery").forEach(g => {
+    let imgs = g.querySelectorAll("img"), current = 0;
+    g.querySelector(".next").addEventListener("click", (e) => {
+      e.stopPropagation();
+      imgs[current].classList.remove("active");
+      current = (current + 1) % imgs.length;
+      imgs[current].classList.add("active");
+    });
+    g.querySelector(".prev").addEventListener("click", (e) => {
+      e.stopPropagation();
+      imgs[current].classList.remove("active");
+      current = (current - 1 + imgs.length) % imgs.length;
+      imgs[current].classList.add("active");
+    });
+  });
+
+  // Fermer modal
+  const closeBtn = document.querySelector(".close-btn");
+ document.getElementById("closeMissionModal").onclick=()=>missionModal.style.display="none";
+    document.getElementById("closeMissionMod").onclick=()=>missionMod.style.display="none";
+    window.onclick=(e)=>{if(e.target===missionModal) missionModal.style.display="none"; if(e.target===missionMod) missionMod.style.display="none";}
+  }
 
 
-  </div>
+// --- Filtrage combiné (texte + filtres) ---
+function applyCombinedFilters() {
+  const text = searchInput.value.toLowerCase().trim();
+  const agency = filterAgency.value;
+  const year = filterYear.value;
+  const type = filterType.value;
 
-  <div class="card-body">
-    <div class="card-title">Artemis I</div>
-    <div class="card-sub">Explore Mars' surface</div>
+  const filtered = missions.filter(m => {
+    const textMatch = !text || 
+      m.name.toLowerCase().includes(text) ||
+      m.description.toLowerCase().includes(text) ||
+      m.date.toLowerCase().includes(text) ||
+      m.agency.toLowerCase().includes(text) ||
+      m.type.toLowerCase().includes(text);
+    const agencyMatch = !agency || m.agency === agency;
+    const yearMatch = !year || m.date.includes(year);
+    const typeMatch = !type || m.type === type;
 
-    <div class="meta">
-      <div>Launch date: <strong class="meta-strong">November 16, 2022</strong></div>
-      
-      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
-    </div>
-  </div>
-</aside>
+    return textMatch && agencyMatch && yearMatch && typeMatch;
+  });
 
+  displayMissions(filtered);
+}
 
-    <main class="right">
-      <h1 class="title-big" >Artemis I</h1>
+// --- Event listeners ---
+searchInput.addEventListener("input", applyCombinedFilters);
+filterAgency.addEventListener("change", applyCombinedFilters);
+filterYear.addEventListener("change", applyCombinedFilters);
+filterType.addEventListener("change", applyCombinedFilters);
+function debounce(func, delay) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), delay);
+  };
+}
 
-      <section class="desc-card">
-        <div class="desc-head">
-          <div class="desc-icon">🛰️</div>
-          <div>
-            <p class="desc-paragraph">
-              Artemis I est une mission de la NASA lancée le 16 novembre 2022. Sans équipage, elle a testé la fusée SLS et le vaisseau Orion en effectuant un vol autour de la Lune pour préparer le retour des humains sur la Lune et, plus tard, l’exploration de Mars.
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-  <div class="mockup">
-    <aside class="card" aria-label="JWST">
-  <div class="image-wrap">
-   <iframe 
-    width="320" 
-    height="240" 
-    src="https://www.youtube.com/embed/6VqG3Jazrfs?autoplay=1&mute=1&loop=1&playlist=6VqG3Jazrfs" 
-    title="Curiosity Rover Video" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
-
-  </div>
-
-  <div class="card-body">
-    <div class="card-title">JWST</div>
-    <div class="card-sub">Explore Mars' surface</div>
-
-    <div class="meta">
-      <div>Launch date: <strong class="meta-strong"> December 25, 2021</strong></div>
-      
-      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
-    </div>
-  </div>
-</aside>
+const debouncedApplyFilters = debounce(applyCombinedFilters, 300);
+searchInput.addEventListener("input", debouncedApplyFilters);
 
 
-    <main class="right">
-      <h1 class="title-big" >JWST</h1>
+document.querySelector(".close-btn").onclick=()=>{missionMod.style.display="none";};
+window.onclick=(e)=>{if(e.target===missionMod) missionMod.style.display="none";};
+document.getElementById("addMissionBtn").onclick=()=>{
+    editingIndex=null;
+    missionForm.reset();
+    document.getElementById("modalTitle").textContent="Nouvelle Mission";
+    missionMod.style.display="flex";
+  };
 
-      <section class="desc-card">
-        <div class="desc-head">
-          <div class="desc-icon">🌌</div>
-          <div>
-            <p class="desc-paragraph">
-              Le télescope spatial James Webb (JWST), lancé par la NASA le 25 décembre 2021, observe l’univers en lumière infrarouge pour étudier les galaxies lointaines, les étoiles et les exoplanètes.
-Plus puissant que Hubble, il possède un grand miroir et des instruments très sensibles.
-Il permet de comprendre la formation des étoiles et des planètes et d’explorer l’univers primitif.
-            </p>
-            
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-  <div class="mockup">
-    <aside class="card" aria-label="Voyager 1">
-  <div class="image-wrap">
-  <iframe 
-    width="320" 
-    height="240" 
-    src="https://www.youtube.com/embed/qtCBI3WNTdI?autoplay=1&mute=1&loop=1&playlist=qtCBI3WNTdI" 
-    title="Curiosity Rover Video" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
+// --- Sélection des champs ---
+// --- Sélection des champs ---
+const inputs = {
+  name: nameInput,
+  agency: agencyInput,
+  type: typeInput
+};
 
-  </div>
+// Liste des mois
+const months = [
+  "Janvier","Février","Mars","Avril","Mai","Juin",
+  "Juillet","Août","Septembre","Octobre","Novembre","Décembre"
+];
 
-  <div class="card-body">
-    <div class="card-title">Voyager 1</div>
-    <div class="card-sub">Explore Mars' surface</div>
+// Regex pour texte (lettres, accents, tirets, espaces)
+const textRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s\-]+$/;
 
-    <div class="meta">
-      <div>Launch date: <strong class="meta-strong">September 5, 1977</strong></div>
-      
-      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
-    </div>
-  </div>
-</aside>
+// Créer span pour chaque input pour messages d'erreur
+Object.values(inputs).forEach(input => {
+  const span = document.createElement("span");
+  span.classList.add("error-msg");
+  span.style.color = "red";
+  span.style.fontSize = "12px";
+  span.style.display = "block";
+  input.parentNode.insertBefore(span, input.nextSibling);
+});
 
+// Validation en temps réel
+function validateInput(field, value) {
+  if(field === "date") {
+    // Vérifier format "26 Novembre 2011"
+    const parts = value.trim().split(" ");
+    if(parts.length !== 3) return "Format date: 26 Novembre 2011";
+    const [day, month, year] = parts;
+    if(isNaN(day) || day < 1 || day > 31) return "Jour invalide";
+    if(!months.includes(month)) return "Mois invalide";
+    if(isNaN(year) || year.length !== 4) return "Année invalide";
+  } else {
+    if(!textRegex.test(value.trim())) return "Seulement lettres, espaces et - autorisés";
+  }
+  return ""; // ok
+}
 
-    <main class="right">
-      <h1 class="title-big" style="font-size: 14px;">Voyager1</h1>
+// Event listeners temps réel
+Object.entries(inputs).forEach(([key, input]) => {
+  input.addEventListener("input", () => {
+    const msg = validateInput(key, input.value);
+    input.nextSibling.textContent = msg;
+    input.style.borderColor = msg ? "red" : "green";
+  });
+});
 
-      <section class="desc-card">
-        <div class="desc-head">
-          <div class="desc-icon">🔭</div>
-          <div>
-            <p class="desc-paragraph">
-               Voyager 1 est une sonde de la NASA lancée en 1977. Elle a exploré Jupiter et Saturne, puis a continué son voyage dans l’espace interstellaire. C’est aujourd’hui l’objet humain le plus éloigné de la Terre, portant un disque d’or avec des sons et images de notre planète.
-            </p>
-            
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-  <div class="mockup">
-    <aside class="card" aria-label="Perseverance">
-  <div class="image-wrap">
-   <iframe 
-    width="320" 
-    height="240" 
-    src="https://www.youtube.com/embed/h8J7v43mEB4?autoplay=1&mute=1&loop=1&playlist=h8J7v43mEB4" 
-    title="Curiosity Rover Video" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
-
-  </div>
-
-  <div class="card-body">
-    <div class="card-title">Perseverance</div>
-    <div class="card-sub">Explore Mars' surface</div>
-
-    <div class="meta">
-      <div>Launch date: <strong class="meta-strong">July 30, 2020</strong></div>
-      
-      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
-    </div>
-  </div>
-</aside>
+// Validation de la date séparément
+missionDate.addEventListener("input", () => {
+  const msg = validateInput("date", missionDate.value);
+  missionDate.nextSibling.textContent = msg;
+  missionDate.style.borderColor = msg ? "red" : "green";
+});
 
 
-    <main class="right">
-      <h1 class="title-big" style="text-align: left;">Persever</h1>
 
-      <section class="desc-card">
-        <div class="desc-head">
-          <div class="desc-icon">🤖</div>
-          <div>
-            <p class="desc-paragraph">
-              Perseverance est un rover de la NASA sur Mars, arrivé en février 2021. Il cherche des signes de vie ancienne, collecte des échantillons, et étudie le climat et la géologie. Il transporte aussi Ingenuity, un petit hélicoptère, et envoie données et images sur Terre.
-            </p>
+  populateFilters();
+  applyCombinedFilters();
 
-            
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-  <div class="mockup">
-    <aside class="card" aria-label="Curiosity card">
-  <div class="image-wrap">
-   <iframe 
-    width="320" 
-    height="240" 
-    src="https://www.youtube.com/embed/20MFL9L8KEc?autoplay=1&mute=1&loop=1&playlist=20MFL9L8KEc" 
-    title="Curiosity Rover Video" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
-
-  </div>
-
-  <div class="card-body">
-    <div class="card-title">Rosetta</div>
-    <div class="card-sub">Explore Mars' surface</div>
-
-    <div class="meta">
-      <div>Launch date: <strong class="meta-strong">March 2, 2004</strong></div>
-      
-      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
-    </div>
-  </div>
-</aside>
+  displayMissions(missions);
 
 
-    <main class="right">
-      <h1 class="title-big" >Rosetta</h1>
-
-      <section class="desc-card">
-        <div class="desc-head">
-          <div class="desc-icon">☄️</div>
-          <div>
-            <p class="desc-paragraph">
-             Rosetta est une sonde de l’ESA lancée en 2004 pour étudier la comète 67P. En 2014, elle a déposé Philae, le premier atterrissage sur une comète, et a étudié sa composition et activité, aidant à comprendre l’origine de l’eau et des molécules organiques sur Terre
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-  <div class="mockup">
-    <aside class="card" aria-label="P.S.Probe">
-  <div class="image-wrap">
-    <iframe 
-    width="320" 
-    height="240" 
-    src="https://www.youtube.com/embed/1PKhD7YB5-s?autoplay=1&mute=1&loop=1&playlist=1PKhD7YB5-s" 
-    title="Curiosity Rover Video" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
+ displayMissions(missions);
 
 
-  </div>
+ </script>
+ </body>
 
-  <div class="card-body">
-    <div class="card-title">P.S.Probe</div>
-    <div class="card-sub">Explore Mars' surface</div>
-
-    <div class="meta">
-      <div>Launch date: <strong class="meta-strong"> August 12, 201</strong></div>
-      
-      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
-    </div>
-  </div>
-</aside>
-
-
-    <main class="right">
-      <h1 class="title-big" >P.S.Probe</h1>
-
-      <section class="desc-card">
-        <div class="desc-head">
-          <div class="desc-icon">🤖</div>
-          <div>
-            <p class="desc-paragraph">
-              Parker Solar Probe est une sonde de la NASA lancée en 2018 pour étudier le Soleil. Elle mesure le vent solaire et la couronne solaire, et collecte des données pour prévoir les tempêtes solaires pouvant affecter la Terre.
-            </p>
-
-            
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-  <div class="mockup">
-    <aside class="card" aria-label="Curiosity card">
-  <div class="image-wrap">
-<iframe 
-    width="320" 
-    height="240" 
-    src="https://www.youtube.com/embed/4OoQ9nmkL1U?autoplay=1&mute=1&loop=1&playlist=4OoQ9nmkL1U" 
-    title="Hubble: The Great Space Telescope" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
-
-
-  </div>
-
-  <div class="card-body">
-    <div class="card-title">H.S.T</div>
-    <div class="card-sub">Explore Mars' surface</div>
-
-    <div class="meta">
-      <div>Launch date: <strong class="meta-strong">April 24, 1990</strong></div>
-      
-      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
-    </div>
-  </div>
-</aside>
-
-
-    <main class="right">
-      <h1 class="title-big" >H.S.T</h1>
-
-      <section class="desc-card">
-        <div class="desc-head">
-          <div class="desc-icon">🛰️</div>
-          <div>
-            <p class="desc-paragraph">
-              Hubble est un télescope spatial de la NASA lancé en 1990. Il observe l’univers depuis l’espace, capture des images incroyables, et aide à étudier les galaxies, exoplanètes et trous noirs.
-
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-  <div class="mockup">
-    <aside class="card" aria-label="Curiosity card">
-  <div class="image-wrap">
-  <iframe 
-    width="320" 
-    height="240" 
-    src="https://www.youtube.com/embed/FWFKk2yNzRM?autoplay=1&mute=1&loop=1&playlist=FWFKk2yNzRM" 
-    title="Curiosity Rover Video" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
-
-  </div>
-
-  <div class="card-body">
-    <div class="card-title">Tianwe.n1</div>
-    <div class="card-sub">Explore Mars' surface</div>
-
-    <div class="meta">
-      <div>Launch date: <strong class="meta-strong">November 26, 2011</strong></div>
-      
-      <div> <a href="https://www.nasa.gov/" class="meta-link">NASA</a></div>
-    </div>
-  </div>
-</aside>
-
-
-    <main class="right">
-      <h1 class="title-big" >Tianwe.n1</h1>
-
-      <section class="desc-card">
-        <div class="desc-head">
-          <div class="desc-icon"></div>
-          <div>
-            <p class="desc-paragraph">
-              Tianwen-1 est la première mission interplanétaire indépendante de la Chine vers Mars, lancée le 23 juillet 2020 par la CNSA. Son nom, qui signifie « Questions au Ciel », reflète la quête de connaissance et d’exploration scientifique de la Chine.
-            </p>
-
-            
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
   <footer>
       <div class="background-footer">
         <div class="footer-top">

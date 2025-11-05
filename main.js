@@ -96,3 +96,29 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCount();
   });
 });
+
+const missionItems = document.querySelectorAll('.mission-item');
+
+missionItems.forEach((item) => {
+  const images = item.querySelectorAll('img');
+  let currentIndex = 0;
+  const nextBtn = item.querySelector('.next');
+  const prevBtn = item.querySelector('.prev');
+
+  images[currentIndex].classList.add('active');
+
+  nextBtn.addEventListener('click', () => {
+    images[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % images.length;
+    images[currentIndex].classList.add('active');
+  });
+
+  prevBtn.addEventListener('click', () => {
+    images[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    images[currentIndex].classList.add('active');
+  });
+});
+
+
+

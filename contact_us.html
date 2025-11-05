@@ -109,7 +109,41 @@
     color: #FFFFFF; /* couleur accent sur hover ou page active */
     background-color: #000;
 }
-
+/* Validation feedback */
+input:invalid, textarea:invalid {
+  border-bottom: 2px solid #e63946;
+}
+input:valid, textarea:valid {
+  border-bottom: 2px solid #06d6a0;
+}
+.error-msg {
+  color: #e63946;
+  font-size: 13px;
+  margin-top: 4px;
+  display: block;
+  min-height: 16px;
+}
+/* Validation feedback */
+input:invalid, textarea:invalid {
+  border-bottom: 2px solid #e63946;
+}
+input:valid, textarea:valid {
+  border-bottom: 2px solid #06d6a0;
+}
+.error-msg {
+  color: #e63946;
+  font-size: 13px;
+  margin-top: 4px;
+  display: block;
+  min-height: 18px;
+  opacity: 0.9;
+}
+input.valid, textarea.valid {
+  border-color: #06d6a0;
+}
+input.invalid, textarea.invalid {
+  border-color: #e63946;
+}
     </style>
 
   </head>
@@ -214,49 +248,55 @@
       </aside>
 
       <section class="right-panel">
-        <form>
-          <div class="row">
-            <div>
-              <label for="fname">First Name</label>
-              <input id="fname" type="text" placeholder="" required/>
-            </div>
-            <div>
-              <label for="lname">Last Name</label>
-              <input id="lname" type="text" placeholder="" required/>
-            </div>
-          </div>
+       <form id="contactForm" novalidate>
+  <div class="row">
+    <div>
+      <label for="fname">First Name</label>
+      <input id="fname" type="text" placeholder="Your first name" required />
+      <small class="error-msg"></small>
+    </div>
+    <div>
+      <label for="lname">Last Name</label>
+      <input id="lname" type="text" placeholder="Your last name" required />
+      <small class="error-msg"></small>
+    </div>
+  </div>
 
-          <div class="row mt">
-            <div>
-              <label for="email">Email</label>
-              <input id="email" type="email" placeholder="" required />
-            </div>
-            <div>
-              <label for="phone">Phone Number</label>
-              <input id="phone" type="tel" placeholder="" required/>
-            </div>
-          </div>
+  <div class="row mt">
+    <div>
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="example@email.com" required />
+      <small class="error-msg"></small>
+    </div>
+    <div>
+      <label for="phone">Phone Number</label>
+      <input id="phone" type="tel" placeholder="+212 600 00 00 00" required />
+      <small class="error-msg"></small>
+    </div>
+  </div>
 
-          <div class="subject">
-            <label>Select Subject?</label>
-            <div class="radios">
-              <label class="radio"><input type="radio" name="subject" checked/> <span>General Inquiry</span></label>
-              <label class="radio"><input type="radio" name="subject"/> <span>Sales</span></label>
-              <label class="radio"><input type="radio" name="subject"/> <span>Support</span></label>
-              <label class="radio"><input type="radio" name="subject"/> <span>Other</span></label>
-            </div>
-          </div>
+  <div class="subject">
+    <label>Select Subject?</label>
+    <div class="radios">
+      <label class="radio"><input type="radio" name="subject" value="General" checked /> <span>General Inquiry</span></label>
+      <label class="radio"><input type="radio" name="subject" value="Sales" /> <span>Sales</span></label>
+      <label class="radio"><input type="radio" name="subject" value="Support" /> <span>Support</span></label>
+      <label class="radio"><input type="radio" name="subject" value="Other" /> <span>Other</span></label>
+    </div>
+  </div>
 
-          <div class="mt">
-            <label for="msg">Message</label>
-            <textarea id="msg" placeholder="Write your message..." required></textarea>
-          </div>
+  <div class="mt">
+    <label for="msg">Message</label>
+    <textarea id="msg" placeholder="Write your message..." required></textarea>
+    <small class="error-msg"></small>
+  </div>
 
-          <div class="send-row">
-            <button class="btn-send" type="submit">Send Message</button>
-            <button class="btn-send" type="reset">Reset</button>
-          </div>
-        </form>
+  <div class="send-row">
+    <button class="btn-send" type="submit">Send Message</button>
+  </div>
+</form>
+
+
       </section>
     </div>
 
@@ -303,6 +343,127 @@
 
 
   </div>
+  <script>
+const fields = [
+  { 
+    id: "fname", 
+    label: "First name", 
+    pattern: /^[a-zA-ZÀ-ÿ\s'-]{2,}$/,
+    hint: "Seulement des lettres, minimum 2 caractères"
+  },
+  { 
+    id: "lname", 
+    label: "Last name", 
+    pattern: /^[a-zA-ZÀ-ÿ\s'-]{2,}$/, 
+    hint: "Seulement des lettres, minimum 2 caractères"
+  },
+  { 
+    id: "email", 
+    label: "Email", 
+    pattern: /^[^ ]+@[^ ]+\.[a-z]{2,}$/i, 
+    hint: "Format attendu : exemple@mail.com" 
+  },
+  { 
+    id: "phone", 
+    label: "Phone number", 
+    pattern: /^[0-9+\s-]{6,}$/, 
+    hint: "Exemple : +212 600 00 00 00" 
+  },
+  { 
+    id: "msg", 
+    label: "Message", 
+    pattern: /^.{5,}$/, 
+    hint: "Minimum 5 caractères" 
+  }
+];
+
+// Récupérer le bouton envoyer
+const sendBtn = document.querySelector(".btn-send");
+sendBtn.disabled = true; // désactiver au début
+sendBtn.style.opacity = 0.6;
+
+// Fonction pour valider un champ
+function validateField(f) {
+  const input = document.getElementById(f.id);
+  const value = input.value.trim();
+  const error = input.parentElement.querySelector(".error-msg");
+
+  input.classList.remove("valid", "invalid");
+
+  if (value === "") {
+    error.textContent = `${f.label} is required.`;
+    input.classList.add("invalid");
+    return false;
+  } else if (!f.pattern.test(value)) {
+    error.textContent = `${f.label} invalid. ${f.hint}`;
+    input.classList.add("invalid");
+    return false;
+  } else {
+    error.textContent = "";
+    input.classList.add("valid");
+    return true;
+  }
+}
+
+// Fonction pour vérifier si tout est valide pour activer le bouton
+function checkFormValidity() {
+  const allValid = fields.every(f => validateField(f));
+  sendBtn.disabled = !allValid;
+  sendBtn.style.opacity = allValid ? 1 : 0.6;
+}
+
+// Validation en temps réel
+fields.forEach(f => {
+  const input = document.getElementById(f.id);
+  input.addEventListener("input", () => {
+    validateField(f);
+    checkFormValidity();
+  });
+});
+
+// Validation à l'envoi
+document.getElementById("contactForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  // Validation finale
+  let isValid = fields.every(f => validateField(f));
+
+  if (!isValid) {
+    alert("⚠️ Veuillez remplir correctement tous les champs avant d'envoyer le message !");
+    return;
+  }
+
+  // Validation asynchrone (email déjà utilisé)
+  const emailInput = document.getElementById("email");
+  const emailError = emailInput.parentElement.querySelector(".error-msg");
+  const emailCheck = await simulateAsyncCheck(emailInput.value);
+  if (!emailCheck) {
+    emailError.textContent = "Cet email est déjà utilisé.";
+    emailInput.classList.add("invalid");
+    alert("⚠️ Vérifiez votre email avant d'envoyer le message !");
+    return;
+  }
+
+  // Tout correct
+  alert("✅ Message sent successfully!");
+  this.reset();
+  document.querySelectorAll("input, textarea").forEach(el => el.classList.remove("valid"));
+  sendBtn.disabled = true;
+  sendBtn.style.opacity = 0.6;
+});
+
+// Fonction pour simuler une validation asynchrone
+function simulateAsyncCheck(value) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      if (value.toLowerCase() === "test@mail.com") resolve(false);
+      else resolve(true);
+    }, 800);
+  });
+}
+
+
+</script>
 </body>
 <footer>
       <div class="background-footer">
