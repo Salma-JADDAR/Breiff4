@@ -328,6 +328,13 @@
         <input type="text" id="missionDate" placeholder="Date" required><br>
         <input type="text" id="missionType" placeholder="Type" required><br>
         <textarea id="missionDesc" placeholder="Description"></textarea><br>
+        <!-- CHAMP UPLOAD POUR IMAGES AJOUTÉ ICI -->
+        <label for="missionImageFile" style="display: block; margin: 10px 0; font-weight: bold;">
+          Ajouter une image
+        </label>
+        <input type="file" id="missionImageFile" accept="image/*" 
+               style="width: 100%; padding: 8px; margin: 5px 0;">
+        <br>
         <button type="submit">Enregistrer</button>
       </form>
     </div>
@@ -344,8 +351,7 @@
   </div>
 
 <script>
-  
-const missions = [
+ let missions = JSON.parse(localStorage.getItem("missions")) || [
   {
     "name": "Apollo 11",
     "agency": "NASA",
@@ -516,259 +522,403 @@ const missions = [
   }
 ];
 
+function saveMissions(){ localStorage.setItem("missions", JSON.stringify(missions)); }
 
 // --- Références DOM ---
-  const container=document.getElementById("missionsGrid");
-  const searchInput=document.getElementById("searchInput");
-  const filterAgency=document.getElementById("agenceFilter");
-  const filterYear=document.getElementById("anneeFilter");
-  const filterType=document.getElementById("typeFilter");
-  const missionMod=document.getElementById("missionMod");
-  const missionModal=document.getElementById("missionModal");
-  const missionForm=document.getElementById("missionForm");
-  const nameInput=document.getElementById("missionName");
-  const agencyInput=document.getElementById("missionAgency");
-  const dateInput=document.getElementById("missionDate");
-  const typeInput=document.getElementById("missionType");
-  const descInput=document.getElementById("missionDesc");
-  let editingIndex=null;
+const container=document.getElementById("missionsGrid");
+const searchInput=document.getElementById("searchInput");
+const filterAgency=document.getElementById("agenceFilter");
+const filterYear=document.getElementById("anneeFilter");
+const filterType=document.getElementById("typeFilter");
+const missionMod=document.getElementById("missionMod");
+const missionModal=document.getElementById("missionModal");
+const missionForm=document.getElementById("missionForm");
+const nameInput=document.getElementById("missionName");
+const agencyInput=document.getElementById("missionAgency");
+const dateInput=document.getElementById("missionDate");
+const typeInput=document.getElementById("missionType");
+const descInput=document.getElementById("missionDesc");
+let editingIndex=null;
 
-// --- Peupler les filtres ---
-function populateFilters() {
-  const agencies = [...new Set(missions.map(m => m.agency))];
-  agencies.forEach(a => {
-    const opt = document.createElement("option");
-    opt.value = a;
-    opt.textContent = a;
-    filterAgency.appendChild(opt);
-  });
-
-  const years = [...new Set(missions.map(m => m.date.match(/\d{4}/)?.[0]).filter(y => y))];
-  years.sort((a,b) => b-a).forEach(y => {
-    const opt = document.createElement("option");
-    opt.value = y;
-    opt.textContent = y;
-    filterYear.appendChild(opt);
-  });
-
-  const types = [...new Set(missions.map(m => m.type))];
-  types.forEach(t => {
-    const opt = document.createElement("option");
-    opt.value = t;
-    opt.textContent = t;
-    filterType.appendChild(opt);
-  });
+// --- Message simple ---
+function showMessage(msg,type){
+  const messageDiv=document.createElement("div");
+  messageDiv.textContent=msg;
+  messageDiv.style.position="fixed"; messageDiv.style.top="20px";
+  messageDiv.style.left="50%"; messageDiv.style.transform="translateX(-50%)";
+  messageDiv.style.padding="10px 20px"; messageDiv.style.backgroundColor=type==="success"?"green":"red";
+  messageDiv.style.color="white"; messageDiv.style.borderRadius="5px"; messageDiv.style.zIndex="1000";
+  document.body.appendChild(messageDiv);
+  setTimeout(()=>messageDiv.remove(),3000);
 }
 
-// --- Affichage des missions ---
-function displayMissions(list) {
-  container.innerHTML = "";
-  list.forEach((m, index) => {
-    const div = document.createElement("div");
+// --- Affichage missions ---
+function displayMissions(list){
+  container.innerHTML="";
+  list.forEach((m,index)=>{
+    const div=document.createElement("div");
     div.classList.add("mission-item");
 
-    // Galerie
-    let galleryHTML = `<div class="mission-gallery" data-index="${index}">`;
-    m.images.forEach((img, i) => {
-      galleryHTML += `<img src="${img}" class="${i === 0 ? 'active' : ''}" alt="${m.name}">`;
-    });
-    galleryHTML += `<button class="prev">&#10094;</button><button class="next">&#10095;</button></div>`;
+    let galleryHTML=`<div class="mission-gallery" data-index="${index}">`;
+    m.images.forEach((img,i)=>{ galleryHTML+=`<img src="${img}" class="${i===0?'active':''}" alt="${m.name}">`; });
+    galleryHTML+=`</div>`;
 
-   div.innerHTML = `
-  ${galleryHTML}
-  <h3>${m.name}</h3>
-  <p><strong>Agence:</strong> ${m.agency}</p>
-  <p><strong>Date:</strong> ${m.date}</p>
-  <div class="action-buttons">
-    <button class="edit-btn" title="Editer"><i class="fas fa-edit"></i> Edit</button>
-    <button class="delete-btn" title="Supprimer"><i class="fas fa-trash-alt"></i> Supprimer</button>
-  </div>
-`;
+    div.innerHTML=`${galleryHTML}<h3>${m.name}</h3><p><strong>Agence:</strong> ${m.agency}</p><p><strong>Date:</strong> ${m.date}</p>
+    <div class="action-buttons">
+      <button class="edit-btn" title="Editer"><i class="fas fa-edit"></i> Edit</button>
+      <button class="delete-btn" title="Supprimer"><i class="fas fa-trash-alt"></i> Supprimer</button>
+    </div>`;
 
     container.appendChild(div);
-   div.querySelector(".edit-btn").onclick=(e)=>{
-        e.stopPropagation();
-        editingIndex=index;
-        nameInput.value=m.name;
-        agencyInput.value=m.agency;
-        dateInput.value=m.date;
-        typeInput.value=m.type;
-        descInput.value=m.description;
-        document.getElementById("modalTitle").textContent="Modifier Mission";
-        missionMod.style.display="flex";
-      };
-     // Delete
-  div.querySelector(".delete-btn").onclick = (e) => {
-    e.stopPropagation();
-    if(index >= 0 && index < missions.length){
-        if(confirm(`Voulez-vous vraiment supprimer "${missions[index].name}" ?`)){
-            missions.splice(index, 1);
-            applyCombinedFilters();
-            showMessage("Suppression réussie !", "success");
-        }
-    } else {
-        showMessage("Mission introuvable !", "error");
-    }
-};
 
+    // Edit
+    div.querySelector(".edit-btn").onclick=(e)=>{ 
+      e.stopPropagation(); 
+      editingIndex=index; 
+      nameInput.value=m.name; 
+      agencyInput.value=m.agency; 
+      dateInput.value=m.date; 
+      typeInput.value=m.type; 
+      descInput.value=m.description; 
+      document.getElementById("modalTitle").textContent="Modifier Mission"; 
+      missionMod.style.display="flex"; 
+    };
     
-    // Modal
- // Modal view
-div.addEventListener("click", () => {
-  const modal = document.getElementById("missionModal");
-  document.getElementById("modalTitleView").textContent = m.name;
-  document.getElementById("modalDescriptionView").textContent = m.description;
-  modal.style.display = "block";
-});
-
+    // Delete
+    div.querySelector(".delete-btn").onclick=(e)=>{ e.stopPropagation(); missions.splice(index,1); saveMissions(); applyCombinedFilters(); showMessage("Suppression réussie !","success"); };
+    
+    // Modal view
+    div.addEventListener("click",()=>{ document.getElementById("modalTitleView").textContent=m.name; document.getElementById("modalDescriptionView").textContent=m.description; missionModal.style.display="flex"; });
   });
 
-  // Navigation images
-  container.querySelectorAll(".mission-gallery").forEach(g => {
-    let imgs = g.querySelectorAll("img"), current = 0;
-    g.querySelector(".next").addEventListener("click", (e) => {
-      e.stopPropagation();
-      imgs[current].classList.remove("active");
-      current = (current + 1) % imgs.length;
-      imgs[current].classList.add("active");
-    });
-    g.querySelector(".prev").addEventListener("click", (e) => {
-      e.stopPropagation();
-      imgs[current].classList.remove("active");
-      current = (current - 1 + imgs.length) % imgs.length;
-      imgs[current].classList.add("active");
-    });
-  });
+  document.getElementById("closeMissionModal").onclick=()=>missionModal.style.display="none";
+  document.getElementById("closeMissionMod").onclick=()=>missionMod.style.display="none";
+  window.onclick=(e)=>{ if(e.target===missionModal) missionModal.style.display="none"; if(e.target===missionMod) missionMod.style.display="none"; };
+}
 
-  // Fermer modal
-  const closeBtn = document.querySelector(".close-btn");
- document.getElementById("closeMissionModal").onclick=()=>missionModal.style.display="none";
-    document.getElementById("closeMissionMod").onclick=()=>missionMod.style.display="none";
-    window.onclick=(e)=>{if(e.target===missionModal) missionModal.style.display="none"; if(e.target===missionMod) missionMod.style.display="none";}
-  }
+// --- Filtres ---
+function populateFilters(){
+  const agencies=[...new Set(missions.map(m=>m.agency))]; agencies.forEach(a=>{ const opt=document.createElement("option"); opt.value=a; opt.textContent=a; filterAgency.appendChild(opt); });
+  const years=[...new Set(missions.map(m=>m.date.match(/\d{4}/)?.[0]).filter(y=>y))]; years.sort((a,b)=>b-a).forEach(y=>{ const opt=document.createElement("option"); opt.value=y; opt.textContent=y; filterYear.appendChild(opt); });
+  const types=[...new Set(missions.map(m=>m.type))]; types.forEach(t=>{ const opt=document.createElement("option"); opt.value=t; opt.textContent=t; filterType.appendChild(opt); });
+}
 
-
-// --- Filtrage combiné (texte + filtres) ---
-function applyCombinedFilters() {
-  const text = searchInput.value.toLowerCase().trim();
-  const agency = filterAgency.value;
-  const year = filterYear.value;
-  const type = filterType.value;
-
-  const filtered = missions.filter(m => {
-    const textMatch = !text || 
-      m.name.toLowerCase().includes(text) ||
-      m.description.toLowerCase().includes(text) ||
-      m.date.toLowerCase().includes(text) ||
-      m.agency.toLowerCase().includes(text) ||
-      m.type.toLowerCase().includes(text);
-    const agencyMatch = !agency || m.agency === agency;
-    const yearMatch = !year || m.date.includes(year);
-    const typeMatch = !type || m.type === type;
-
+function applyCombinedFilters(){
+  const text=searchInput.value.toLowerCase().trim();
+  const agency=filterAgency.value; const year=filterYear.value; const type=filterType.value;
+  const filtered=missions.filter(m=>{
+    const textMatch=!text || m.name.toLowerCase().includes(text) || m.description.toLowerCase().includes(text) || m.date.toLowerCase().includes(text) || m.agency.toLowerCase().includes(text) || m.type.toLowerCase().includes(text);
+    const agencyMatch=!agency || m.agency===agency;
+    const yearMatch=!year || m.date.includes(year);
+    const typeMatch=!type || m.type===type;
     return textMatch && agencyMatch && yearMatch && typeMatch;
   });
-
   displayMissions(filtered);
 }
 
-// --- Event listeners ---
-searchInput.addEventListener("input", applyCombinedFilters);
-filterAgency.addEventListener("change", applyCombinedFilters);
-filterYear.addEventListener("change", applyCombinedFilters);
-filterType.addEventListener("change", applyCombinedFilters);
-function debounce(func, delay) {
-  let timeout;
-  return function(...args) {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, args), delay);
-  };
-}
+searchInput.addEventListener("input",applyCombinedFilters);
+filterAgency.addEventListener("change",applyCombinedFilters);
+filterYear.addEventListener("change",applyCombinedFilters);
+filterType.addEventListener("change",applyCombinedFilters);
 
-const debouncedApplyFilters = debounce(applyCombinedFilters, 300);
-searchInput.addEventListener("input", debouncedApplyFilters);
+// --- Debounce search ---
+function debounce(func,delay){ let timeout; return function(...args){ clearTimeout(timeout); timeout=setTimeout(()=>func.apply(this,args),delay); }; }
+searchInput.addEventListener("input",debounce(applyCombinedFilters,300));
 
-
-document.querySelector(".close-btn").onclick=()=>{missionMod.style.display="none";};
-window.onclick=(e)=>{if(e.target===missionMod) missionMod.style.display="none";};
+// --- Ajouter mission ---
 document.getElementById("addMissionBtn").onclick=()=>{
-    editingIndex=null;
-    missionForm.reset();
-    document.getElementById("modalTitle").textContent="Nouvelle Mission";
-    missionMod.style.display="flex";
-  };
-
-// --- Sélection des champs ---
-// --- Sélection des champs ---
-const inputs = {
-  name: nameInput,
-  agency: agencyInput,
-  type: typeInput
+  editingIndex=null;
+  missionForm.reset();
+  document.getElementById("modalTitle").textContent="Nouvelle Mission";
+  missionMod.style.display="flex";
 };
 
-// Liste des mois
-const months = [
-  "Janvier","Février","Mars","Avril","Mai","Juin",
-  "Juillet","Août","Septembre","Octobre","Novembre","Décembre"
-];
+// --- Form submit - AVEC CHAMP URL POUR IMAGES ---
+missionForm.addEventListener("submit",(e)=>{
+  e.preventDefault();
 
-// Regex pour texte (lettres, accents, tirets, espaces)
-const textRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s\-]+$/;
+  // Récupérer le fichier image uploadé
+  const imageFileInput = document.getElementById("missionImageFile");
+  const imageFile = imageFileInput ? imageFileInput.files[0] : null;
 
-// Créer span pour chaque input pour messages d'erreur
-Object.values(inputs).forEach(input => {
-  const span = document.createElement("span");
-  span.classList.add("error-msg");
-  span.style.color = "red";
-  span.style.fontSize = "12px";
-  span.style.display = "block";
-  input.parentNode.insertBefore(span, input.nextSibling);
-});
-
-// Validation en temps réel
-function validateInput(field, value) {
-  if(field === "date") {
-    // Vérifier format "26 Novembre 2011"
-    const parts = value.trim().split(" ");
-    if(parts.length !== 3) return "Format date: 26 Novembre 2011";
-    const [day, month, year] = parts;
-    if(isNaN(day) || day < 1 || day > 31) return "Jour invalide";
-    if(!months.includes(month)) return "Mois invalide";
-    if(isNaN(year) || year.length !== 4) return "Année invalide";
-  } else {
-    if(!textRegex.test(value.trim())) return "Seulement lettres, espaces et - autorisés";
+  // CORRECTION : Conserver les images existantes lors de l'édition
+  if(editingIndex !== null) {
+    // En mode édition, conserver les images originales
+    const existingImages = missions[editingIndex].images;
+    
+    // Si un nouveau fichier est uploadé, le convertir en URL et l'ajouter
+    let updatedImages = existingImages;
+    if (imageFile) {
+      const newImageUrl = URL.createObjectURL(imageFile);
+      updatedImages = [...existingImages, newImageUrl];
+    }
+    
+    const newMission = { 
+      name: nameInput.value.trim(), 
+      agency: agencyInput.value.trim(), 
+      date: dateInput.value.trim(), 
+      type: typeInput.value.trim(), 
+      description: descInput.value.trim(), 
+      images: updatedImages
+    };
+    
+    missions[editingIndex] = newMission;
+    showMessage("Modification réussie !", "success");
+  } 
+  // Si c'est une nouvelle mission
+  else {
+    let images = ["images/default.png"];
+    if (imageFile) {
+      const newImageUrl = URL.createObjectURL(imageFile);
+      images = [newImageUrl];
+    }
+    
+    const newMission = { 
+      name: nameInput.value.trim(), 
+      agency: agencyInput.value.trim(), 
+      date: dateInput.value.trim(), 
+      type: typeInput.value.trim(), 
+      description: descInput.value.trim(), 
+      images: images
+    };
+    
+    missions.push(newMission);
+    showMessage("Ajout réussi !", "success");
   }
-  return ""; // ok
-}
 
-// Event listeners temps réel
-Object.entries(inputs).forEach(([key, input]) => {
-  input.addEventListener("input", () => {
-    const msg = validateInput(key, input.value);
-    input.nextSibling.textContent = msg;
-    input.style.borderColor = msg ? "red" : "green";
-  });
-});
-
-// Validation de la date séparément
-missionDate.addEventListener("input", () => {
-  const msg = validateInput("date", missionDate.value);
-  missionDate.nextSibling.textContent = msg;
-  missionDate.style.borderColor = msg ? "red" : "green";
-});
-
-
-
-  populateFilters();
+  saveMissions();
   applyCombinedFilters();
+  missionMod.style.display="none"; 
+});
+// --- Initialisation ---
+populateFilters();
+applyCombinedFilters();
+displayMissions(missions);
 
-  displayMissions(missions);
 
 
- displayMissions(missions);
+// // Fonction pour initialiser le localStorage avec les missions
+// function initializeMissionsOnReload() {
+//   // Vérifier si le localStorage est vide ou s'il faut le réinitialiser
+//   const existingMissions = localStorage.getItem("missions");
+  
+//   if (!existingMissions || existingMissions === "[]" || confirm("Voulez-vous réinitialiser les missions ?")) {
+//     const missions = [
+//       {
+//         "name": "Apollo 11",
+//         "agency": "NASA",
+//         "date": "16 Juillet 1969",
+//         "description": "Première mission lunaire habitée",
+//         "type": "Exploration lunaire",
+//         "images": ["images/applo1.PNG","images/appolo2.PNG","images/appolo3.PNG","images/appolo6.PNG"]
+//       },
+//       {
+//         "name": "Curiosity",
+//         "agency": "NASA",
+//         "date": "26 Novembre 2011",
+//         "description": "Curiosity explore Mars depuis 2012 pour rechercher des traces de vie passée.",
+//         "type": "Exploration planétaire",
+//         "images": ["images/Ca.PNG","images/Ca1.PNG","images/Ca2.PNG","images/Ca3.PNG"]
+//       },
+//       {
+//         "name": "Artemis I",
+//         "agency": "NASA",
+//         "date": "16 Novembre 2022",
+//         "description": "Artemis I est la première mission du programme Artemis pour retourner sur la Lune.",
+//         "type": "Exploration lunaire",
+//         "images": ["images/ar.PNG","images/ai1.PNG","images/ai2.PNG","images/ia3.PNG"]
+//       },
+//       {
+//         "name": "James Webb",
+//         "agency": "NASA / ESA",
+//         "date": "25 Décembre 2021",
+//         "description": "Le télescope spatial James Webb observe l'univers dans l'infrarouge pour étudier les premières galaxies.",
+//         "type": "Télescopes spatiaux",
+//         "images": ["images/jem.PNG","images/43.PNG","images/41.PNG","images/42.PNG"]
+//       },
+//       {
+//         "name": "Hubble",
+//         "agency": "NASA / ESA",
+//         "date": "24 Avril 1990",
+//         "description": "Hubble est un télescope spatial qui observe l'univers depuis 1990.",
+//         "type": "Télescopes spatiaux",
+//         "images": ["images/H.PNG","images/51.PNG","images/52.PNG","images/53.PNG"]
+//       },
+//       {
+//         "name": "Rosetta",
+//         "agency": "ESA",
+//         "date": "2 Mars 2004",
+//         "description": "Rosetta a étudié la comète 67P et a largué le module Philae.",
+//         "type": "Comètes/Astéroïdes",
+//         "images": ["images/RO.PNG","images/61.PNG","images/62.PNG","images/63.PNG"]
+//       },
+//       {
+//         "name": "Voyager 1",
+//         "agency": "NASA",
+//         "date": "5 Septembre 1977",
+//         "description": "Voyager 1 explore les confins du système solaire et l'espace interstellaire.",
+//         "type": "Exploration planétaire",
+//         "images": ["images/V11.PNG","images/71.PNG","images/72.PNG","images/73.PNG"]
+//       },
+//       {
+//         "name": "Voyager 2",
+//         "agency": "NASA",
+//         "date": "20 Août 1977",
+//         "description": "Voyager 2 explore les planètes extérieures et le milieu interstellaire.",
+//         "type": "Exploration planétaire",
+//         "images": ["images/V22.PNG","images/81.PNG","images/82.PNG","images/83.PNG"]
+//       },
+//       {
+//         "name": "Juno",
+//         "agency": "NASA",
+//         "date": "5 Août 2011",
+//         "description": "Juno orbite autour de Jupiter pour étudier son atmosphère et son champ magnétique.",
+//         "type": "Exploration planétaire",
+//         "images": ["images/JJ.PNG","images/91.PNG","images/92.PNG","images/93.PNG"]
+//       },
+//       {
+//         "name": "Kepler",
+//         "agency": "NASA",
+//         "date": "7 Mars 2009",
+//         "description": "Kepler a découvert des milliers de planètes extrasolaires dans notre galaxie.",
+//         "type": "Exploration planétaire",
+//         "images": ["images/K.PNG","images/101.PNG","images/102.PNG","images/103.PNG"]
+//       },
+//       {
+//         "name": "New Horizons",
+//         "agency": "NASA",
+//         "date": "19 Janvier 2006",
+//         "description": "New Horizons a survolé Pluton et la ceinture de Kuiper.",
+//         "type": "Exploration planétaire",
+//         "images": ["images/PS.PNG","images/111.PNG","images/112.PNG","images/113.PNG"]
+//       },
+//       {
+//         "name": "ISS",
+//         "agency": "NASA / Roscosmos / ESA",
+//         "date": "1998",
+//         "description": "International Space Station, laboratoire orbital en coopération internationale.",
+//         "type": "Satellites/Station orbitale",
+//         "images": ["images/SS.PNG","images/121.PNG","images/122.PNG","images/123.PNG"]
+//       },
+//       {
+//         "name": "Perseverance",
+//         "agency": "NASA",
+//         "date": "30 Juillet 2020",
+//         "description": "Mars 2020, avec le rover Perseverance, explore la surface de Mars.",
+//         "type": "Exploration planétaire",
+//         "images": ["images/PP.PNG","images/131.PNG","images/132.PNG","images/133.PNG"]
+//       },
+//       {
+//         "name": "Dragon Crew",
+//         "agency": "SpaceX / NASA",
+//         "date": "30 Mai 2020",
+//         "description": "Dragon Crew transporte les astronautes vers l'ISS.",
+//         "type": "Satellites/Station orbitale",
+//         "images": ["images/D.PNG","images/141.PNG","images/142.PNG","images/143.PNG"]
+//       },
+//       {
+//         "name": "Tianwen-1",
+//         "agency": "CNSA",
+//         "date": "23 Juillet 2020",
+//         "description": "Tianwen-1 explore Mars avec le rover Zhurong.",
+//         "type": "Exploration planétaire",
+//         "images": ["images/15.PNG","images/151.PNG","images/152.PNG","images/153.PNG"]
+//       },
+//       {
+//         "name": "Hayabusa2",
+//         "agency": "JAXA",
+//         "date": "3 Décembre 2014",
+//         "description": "Hayabusa2 a étudié et ramené des échantillons de l'astéroïde Ryugu.",
+//         "type": "Comètes/Astéroïdes",
+//         "images": ["images/KKK.PNG","images/161.PNG","images/162.PNG","images/163.PNG"]
+//       },
+//       {
+//         "name": "ExoMars TGO",
+//         "agency": "ESA / Roscosmos",
+//         "date": "14 Mars 2016",
+//         "description": "ExoMars Trace Gas Orbiter étudie l'atmosphère martienne et la recherche de gaz trace.",
+//         "type": "Exploration planétaire",
+//         "images": ["images/17.PNG","images/171.PNG","images/172.PNG","images/173.PNG"]
+//       },
+//       {
+//         "name": "Parker Solar Probe",
+//         "agency": "NASA",
+//         "date": "12 Août 2018",
+//         "description": "Parker Solar Probe étudie le Soleil de très près.",
+//         "type": "Missions solaires",
+//         "images": ["images/PARKER.PNG","images/181.PNG","images/182.PNG","images/183.PNG"]
+//       },
+//       {
+//         "name": "OSIRIS-REx",
+//         "agency": "NASA",
+//         "date": "8 Septembre 2016",
+//         "description": "OSIRIS-REx a collecté des échantillons de l'astéroïde Bennu et les a ramenés sur Terre.",
+//         "type": "Comètes/Astéroïdes",
+//         "images": ["images/18.PNG","images/191.PNG","images/192.PNG","images/193.PNG"]
+//       },
+//       {
+//         "name": "Chang'e 4",
+//         "agency": "CNSA",
+//         "date": "7 Décembre 2018",
+//         "description": "Chang'e 4 est la première mission à alunir sur la face cachée de la Lune.",
+//         "type": "Exploration lunaire",
+//         "images": ["images/20.PNG","images/201.PNG","images/202.PNG","images/203.PNG"]
+//       },
+//       {
+//         "name": "Able 1",
+//         "agency": "NASA",
+//         "date": "11 Août 1958",
+//         "description": "Able 1 (ou Pioneer 1) était une mission américaine de la NASA visant à tester le lancement d'un satellite lunaire. Elle a été lancée le 11 août 1958, mais n'a pas atteint la Lune.",
+//         "type": "Exploration lunaire",
+//         "images": ["images/21.PNG","images/211.PNG","images/212.PNG","images/213.PNG"]
+//       }
+//     ];
+
+//     // Sauvegarder dans le localStorage
+//     localStorage.setItem("missions", JSON.stringify(missions));
+//     console.log("Missions initialisées dans le localStorage !");
+//     alert("Missions réinitialisées avec succès !");
+    
+//     // Recharger la page pour afficher les nouvelles données
+//     location.reload();
+//   }
+// }
+
+// // Ajouter un bouton pour déclencher la réinitialisation
+// function addResetButton() {
+//   const resetBtn = document.createElement("button");
+//   resetBtn.textContent = "🔄 Réinitialiser Missions";
+//   resetBtn.style.margin = "10px";
+//   resetBtn.style.padding = "8px 15px";
+//   resetBtn.style.backgroundColor = "#ff6b6b";
+//   resetBtn.style.color = "white";
+//   resetBtn.style.border = "none";
+//   resetBtn.style.borderRadius = "5px";
+//   resetBtn.style.cursor = "pointer";
+  
+//   resetBtn.addEventListener("click", initializeMissionsOnReload);
+  
+//   // Ajouter le bouton après le bouton "Ajouter Mission"
+//   const addBtn = document.getElementById("addMissionBtn");
+//   addBtn.parentNode.insertBefore(resetBtn, addBtn.nextSibling);
+// }
+
+// // Appeler cette fonction au chargement de la page
+// document.addEventListener("DOMContentLoaded", function() {
+//   addResetButton();
+  
+//   // Optionnel: Initialiser automatiquement si le localStorage est vide
+//   const existingMissions = localStorage.getItem("missions");
+//   if (!existingMissions || existingMissions === "[]") {
+//     initializeMissionsOnReload();
+//   }
+// });
+
+</script>
 
 
- </script>
+
+
  </body>
 
   <footer>
@@ -840,4 +990,3 @@ missionDate.addEventListener("input", () => {
 
 
 
-  
