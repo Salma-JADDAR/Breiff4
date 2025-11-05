@@ -280,6 +280,42 @@
     transform: translateY(1px);
     box-shadow: none;
 }
+/* Styles pour les boutons favoris */
+.favorite-btn {
+  background-color: #6c757d !important;
+  color: white !important;
+  border: none !important;
+  padding: 8px 15px !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.favorite-btn:hover {
+  background-color: #5a6268 !important;
+  transform: translateY(-2px) !important;
+}
+
+.favorite-btn.favorited {
+  background-color: #ff6b6b !important;
+}
+
+.favorite-btn.favorited:hover {
+  background-color: #ff5252 !important;
+}
+
+/* Section favoris */
+#favoritesSection {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border: 2px solid rgba(255,255,255,0.1);
+}
+
+#favoritesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
 
     </style>
 
@@ -356,7 +392,7 @@
         <input type="text" id="missionDate" placeholder="Date" required><br>
         <input type="text" id="missionType" placeholder="Type" required><br>
         <textarea id="missionDesc" placeholder="Description"></textarea><br>
-        <!-- CHAMP UPLOAD POUR IMAGES AJOUTÉ ICI -->
+       
         <label for="missionImageFile" style="display: block; margin: 10px 0; font-weight: bold;">
           Ajouter une image
         </label>
@@ -368,7 +404,15 @@
     </div>
   </div>
   <div id="messageBox" style="position:fixed; top:20px; left:50%; transform:translateX(-50%); background-color:#ff4d4f; color:white; padding:10px 20px; border-radius:5px; display:none; z-index:1000;"></div>
-
+<!-- Section Favoris -->
+<section id="favoritesSection" style="display: none; margin: 40px 0; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; color: white;">
+  <div style="text-align: center;">
+    <h2 style="color: white; margin-bottom: 30px; font-size: 2rem;">
+      <i class="fas fa-heart" style="color: #ff6b6b;"></i> Mes Missions Favorites
+    </h2>
+    <div id="favoritesGrid" class="missions-grid"></div>
+  </div>
+</section>
 <!-- Modal -->
 <div id="missionModal" class="modal" style="display:none;">
     <div class="modal-content">
@@ -379,7 +423,7 @@
   </div>
 
 <script>
- let missions = JSON.parse(localStorage.getItem("missions")) || [
+let missions = JSON.parse(localStorage.getItem("missions")) || [
   {
     "name": "Apollo 11",
     "agency": "NASA",
@@ -552,6 +596,13 @@
 
 function saveMissions(){ localStorage.setItem("missions", JSON.stringify(missions)); }
 
+// --- Système de Favoris ---
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+function saveFavorites() {
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+
 // --- Références DOM ---
 const container=document.getElementById("missionsGrid");
 const searchInput=document.getElementById("searchInput");
@@ -591,13 +642,27 @@ function displayMissions(list){
     m.images.forEach((img,i)=>{ galleryHTML+=`<img src="${img}" class="${i===0?'active':''}" alt="${m.name}">`; });
     galleryHTML+=`</div>`;
 
-    div.innerHTML=`${galleryHTML}<h3>${m.name}</h3><p><strong>Agence:</strong> ${m.agency}</p><p><strong>Date:</strong> ${m.date}</p>
-    <div class="action-buttons">
-      <button class="edit-btn" title="Editer"><i class="fas fa-edit"></i> Edit</button>
-      <button class="delete-btn" title="Supprimer"><i class="fas fa-trash-alt"></i> Supprimer</button>
-    </div>`;
+    const isFavorite = favorites.includes(m.name);
+    
+    div.innerHTML=`${galleryHTML}
+      <h3>${m.name}</h3>
+      <p><strong>Agence:</strong> ${m.agency}</p>
+      <p><strong>Date:</strong> ${m.date}</p>
+      <div class="action-buttons">
+        <button class="favorite-btn ${isFavorite ? 'favorited' : ''}" title="${isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}">
+          <i class="fas ${isFavorite ? 'fa-heart' : 'fa-heart'}" style="${isFavorite ? 'color: #ff6b6b;' : 'color: #ccc;'}"></i> ${isFavorite ? 'Favori' : 'Favoris'}
+        </button>
+        <button class="edit-btn" title="Editer"><i class="fas fa-edit"></i> Edit</button>
+        <button class="delete-btn" title="Supprimer"><i class="fas fa-trash-alt"></i> Supprimer</button>
+      </div>`;
 
     container.appendChild(div);
+
+    // Bouton favoris
+    div.querySelector(".favorite-btn").onclick=(e)=>{
+      e.stopPropagation();
+      toggleFavorite(m.name, index);
+    };
 
     // Edit
     div.querySelector(".edit-btn").onclick=(e)=>{ 
@@ -613,7 +678,18 @@ function displayMissions(list){
     };
     
     // Delete
-    div.querySelector(".delete-btn").onclick=(e)=>{ e.stopPropagation(); missions.splice(index,1); saveMissions(); applyCombinedFilters(); showMessage("Suppression réussie !","success"); };
+    div.querySelector(".delete-btn").onclick=(e)=>{ 
+      e.stopPropagation(); 
+      // Retirer aussi des favoris si la mission est supprimée
+      if(favorites.includes(m.name)){
+        favorites=favorites.filter(fav=>fav!==m.name);
+        saveFavorites();
+      }
+      missions.splice(index,1); 
+      saveMissions(); 
+      applyCombinedFilters(); 
+      showMessage("Suppression réussie !","success"); 
+    };
     
     // Modal view
     div.addEventListener("click",()=>{ document.getElementById("modalTitleView").textContent=m.name; document.getElementById("modalDescriptionView").textContent=m.description; missionModal.style.display="flex"; });
@@ -661,7 +737,7 @@ document.getElementById("addMissionBtn").onclick=()=>{
   missionMod.style.display="flex";
 };
 
-// --- Form submit - AVEC CHAMP URL POUR IMAGES ---
+// --- Form submit - AVEC CHAMP UPLOAD POUR IMAGES ---
 missionForm.addEventListener("submit",(e)=>{
   e.preventDefault();
 
@@ -718,7 +794,102 @@ missionForm.addEventListener("submit",(e)=>{
   applyCombinedFilters();
   missionMod.style.display="none"; 
 });
+
+// --- Système de Favoris ---
+function toggleFavorite(missionName, missionIndex) {
+  const index = favorites.indexOf(missionName);
+  
+  if (index === -1) {
+    // Ajouter aux favoris
+    favorites.push(missionName);
+    showMessage("Mission ajoutée aux favoris !", "success");
+  } else {
+    // Retirer des favoris
+    favorites.splice(index, 1);
+    showMessage("Mission retirée des favoris !", "success");
+  }
+  
+  saveFavorites();
+  applyCombinedFilters(); // Re-afficher pour mettre à jour les boutons
+  displayFavorites(); // Mettre à jour la section favoris
+}
+
+function displayFavorites() {
+  const favoritesSection = document.getElementById("favoritesSection");
+  const favoritesGrid = document.getElementById("favoritesGrid");
+  
+  const favoriteMissions = missions.filter(mission => favorites.includes(mission.name));
+  
+  if (favoriteMissions.length === 0) {
+    favoritesGrid.innerHTML = "<p style='text-align: center; color: #666;'>Aucune mission favorite pour le moment.</p>";
+    favoritesSection.style.display = "none";
+  } else {
+    let favoritesHTML = "";
+    favoriteMissions.forEach((mission, index) => {
+      const originalIndex = missions.findIndex(m => m.name === mission.name);
+      
+      favoritesHTML += `
+        <div class="mission-item">
+          <div class="mission-gallery" data-index="${originalIndex}">
+            ${mission.images.map((img, i) => 
+              `<img src="${img}" class="${i === 0 ? 'active' : ''}" alt="${mission.name}">`
+            ).join('')}
+          </div>
+          <h3>${mission.name}</h3>
+          <p><strong>Agence:</strong> ${mission.agency}</p>
+          <p><strong>Date:</strong> ${mission.date}</p>
+          <div class="action-buttons">
+            <button class="favorite-btn favorited" title="Retirer des favoris" onclick="removeFromFavorites('${mission.name}')">
+              <i class="fas fa-heart" style="color: #ff6b6b;"></i> Retirer
+            </button>
+          </div>
+        </div>
+      `;
+    });
+    favoritesGrid.innerHTML = favoritesHTML;
+    favoritesSection.style.display = "block";
+  }
+}
+
+function removeFromFavorites(missionName) {
+  favorites = favorites.filter(fav => fav !== missionName);
+  saveFavorites();
+  displayFavorites();
+  applyCombinedFilters(); // Mettre à jour la liste principale
+  showMessage("Mission retirée des favoris !", "success");
+}
+
+// Ajouter un bouton pour afficher/masquer les favoris
+function addFavoritesToggle() {
+  const favoritesToggle = document.createElement("button");
+  favoritesToggle.id = "toggleFavorites";
+  favoritesToggle.innerHTML = '<i class="fas fa-heart"></i> Voir les Favoris';
+  favoritesToggle.classList.add("btn-add");
+  favoritesToggle.style.backgroundColor = "#ff6b6b";
+  favoritesToggle.style.marginLeft = "10px";
+  
+  favoritesToggle.addEventListener("click", function() {
+    const favoritesSection = document.getElementById("favoritesSection");
+    if (favoritesSection.style.display === "none") {
+      favoritesSection.style.display = "block";
+      this.innerHTML = '<i class="fas fa-heart"></i> Masquer les Favoris';
+      displayFavorites();
+    } else {
+      favoritesSection.style.display = "none";
+      this.innerHTML = '<i class="fas fa-heart"></i> Voir les Favoris';
+    }
+  });
+  
+  const addBtn = document.getElementById("addMissionBtn");
+  addBtn.parentNode.insertBefore(favoritesToggle, addBtn.nextSibling);
+}
+
 // --- Initialisation ---
+document.addEventListener("DOMContentLoaded", function() {
+  addFavoritesToggle();
+  displayFavorites();
+});
+
 populateFilters();
 applyCombinedFilters();
 displayMissions(missions);
