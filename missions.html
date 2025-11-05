@@ -3,386 +3,593 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us | Space Odyssey</title>
+  <title>Missions | Space Odyssey</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;700&display=swap" rel="stylesheet">
-   <link href="https://fonts.googleapis.com/css2?family=Poltawski+Nowy:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-/>
-<script src="main.js" defer></script>
-<style>
-        /* Main container */
-        .site-header {
-            grid-area: top-section;
-            background-color: rgb(255, 255, 255);
-            display: grid;
-            grid-template-columns: 100%;
-            grid-template-rows: 80px 80px;
-        }
+  <link href="https://fonts.googleapis.com/css2?family=Poltawski+Nowy:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* Styles existants */
+    .site-header {
+        grid-area: top-section;
+        background-color: rgb(255, 255, 255);
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 80px 80px;
+    }
 
-        /* Top section */
-        .top-bar {
-            background-color: #000;
-            background-image: url(images/stars.PNG);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            align-items: center;
-        }
+    .top-bar {
+        background-color: #000;
+        background-image: url(images/stars.PNG);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        align-items: center;
+    }
 
-        .top-bar img {
-            height: 80px;
-            padding-left: 90px;
-        }
+    .top-bar img {
+        height: 80px;
+        padding-left: 90px;
+    }
 
-        .search-field {
-            width: 300px;
-            height: 35px;
-            border-radius: 5px;
-            padding: 5px;
-            border: none;
-            margin-right: 25px;
-        }
+    .search-field {
+        width: 300px;
+        height: 35px;
+        border-radius: 5px;
+        padding: 5px;
+        border: none;
+        margin-right: 25px;
+    }
 
-        .top-bar-right {
-            display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
-            align-items: center;
-            padding-right: 100px;
-        }
+    .top-bar-right {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        align-items: center;
+        padding-right: 100px;
+    }
 
-        .icon-group {
-            display: grid;
-            grid-template-columns: repeat(2 , 50px);
-            grid-template-rows: 40px;
-            align-items: center;
-        }
+    .icon-group {
+        display: grid;
+        grid-template-columns: repeat(2 , 50px);
+        grid-template-rows: 40px;
+        align-items: center;
+    }
 
-        .icon-group img {
-            width: 35px;
-            height: 35px;
-        }
+    .icon-group img {
+        width: 35px;
+        height: 35px;
+    }
 
-        .lang-select select {
-            width: 150px;
-            height: 35px;
-            background-color: rgba(240, 248, 255, 0);
-            color: #fff;
-            border: none;
-        }
+    .lang-select select {
+        width: 150px;
+        height: 35px;
+        background-color: rgba(240, 248, 255, 0);
+        color: #fff;
+        border: none;
+    }
 
-        .lang-select option {
-            color: #000;
-        }
+    .lang-select option {
+        color: #000;
+    }
 
-        /* Bottom section */
-        .bottom-bar {
-    background-color: #ffffff; /* fond blanc */
-    display: flex;
-    justify-content: center;  /* centrer horizontalement */
-    align-items: center;      /* centrer verticalement */
-    height: 80px;
-    box-shadow: 2px 2px 13px 5px rgba(54, 54, 54, 0.53);
-}
+    .bottom-bar {
+        background-color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80px;
+        box-shadow: 2px 2px 13px 5px rgba(54, 54, 54, 0.53);
+    }
 
-.bottom-bar ul {
-    list-style: none;
-    display: flex;
-    gap: 50px; /* espace entre les liens */
-    margin: 0;
-    padding: 0;
-}
+    .bottom-bar ul {
+        list-style: none;
+        display: flex;
+        gap: 50px;
+        margin: 0;
+        padding: 0;
+    }
 
-.bottom-bar ul li a {
-    text-decoration: none;
-    color: #0b0b0b;
-    font-weight: 600;
-    font-size: 16px;
-    transition: color 0.3s;
-    border:4PX ;
-}
+    .bottom-bar ul li a {
+        text-decoration: none;
+        color: #0b0b0b;
+        font-weight: 600;
+        font-size: 16px;
+        transition: color 0.3s;
+        border:4PX ;
+    }
 
-.bottom-bar ul li a:hover,
-.bottom-bar ul li a.active {
-    color: #FFFFFF; /* couleur accent sur hover ou page active */
-    background-color: #000;
-}
-.filters {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin: 20px 0;
-  flex-wrap: wrap;
-  
-}
+    .bottom-bar ul li a:hover,
+    .bottom-bar ul li a.active {
+        color: #FFFFFF;
+        background-color: #000;
+    }
 
-/* Input de recherche */
-#searchInput {
-  width: 300px; /* sghir */
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  outline: none;
-   background-color: black;
-  color: white;
-  margin-bottom: 5px; /* pour le décoller un peu des selects */
-}
+    .filters {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
 
-#searchInput:focus {
-  border-color: #007BFF;
-  box-shadow: 0 0 5px rgba(0,123,255,0.5);
-}
+    #searchInput {
+      width: 300px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      outline: none;
+      background-color: black;
+      color: white;
+      margin-bottom: 5px;
+    }
 
-/* Selects */
-#agenceFilter, #anneeFilter, #typeFilter {
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  outline: none;
-  background-color: black;
-  color: white;
-  appearance: none; /* supprime la flèche par défaut */
-  background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 16px;
-  cursor: pointer;
-  width: 180px;
-}
-#agenceFilter, #anneeFilter, #typeFilter {
-    border-color: #007BFF;
-  box-shadow: 0 0 5px rgba(0,123,255,0.5);
-}
+    #searchInput:focus {
+      border-color: #007BFF;
+      box-shadow: 0 0 5px rgba(0,123,255,0.5);
+    }
 
-/* Options */
-#agenceFilter option,
-#anneeFilter option,
-#typeFilter option {
-  background-color: black;
-  color: white;
-}
+    #agenceFilter, #anneeFilter, #typeFilter {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      outline: none;
+      background-color: black;
+      color: white;
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+      cursor: pointer;
+      width: 180px;
+    }
 
-/* Responsive pour mobile */
-@media (max-width: 600px) {
-  .filters {
-    flex-direction: column;
-    align-items: center;
-  }
-  #searchInput, #agenceFilter, #anneeFilter, #typeFilter {
-    width: 90%;
-    margin-bottom: 10px;
-  }
-   }
-/* Modals (Add/Edit & View) */
-.mod {
-  position: fixed; 
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.6); 
-  display: flex;
-  justify-content: center; 
-  align-items: center;     
-  z-index: 9999;          
-}
+    #agenceFilter, #anneeFilter, #typeFilter {
+        border-color: #007BFF;
+      box-shadow: 0 0 5px rgba(0,123,255,0.5);
+    }
 
-.mod-content  {
-  background-color:white;
-  padding: 20px;
+    #agenceFilter option,
+    #anneeFilter option,
+    #typeFilter option {
+      background-color: black;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .filters {
+        flex-direction: column;
+        align-items: center;
+      }
+      #searchInput, #agenceFilter, #anneeFilter, #typeFilter {
+        width: 90%;
+        margin-bottom: 10px;
+      }
+    }
+
+    .mod {
+      position: fixed; 
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6); 
+      display: flex;
+      justify-content: center; 
+      align-items: center;     
+      z-index: 9999;          
+    }
+
+    .mod-content  {
+      background-color:white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      position: relative;
+      color: #000;
+      text-align: center;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 25px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .mission-item .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .mission-item .action-buttons button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    .mission-item .action-buttons .edit-btn {
+      background-color:black;
+      color: white;
+    }
+
+    .mission-item .action-buttons .edit-btn:hover {
+      background-color:#007bff;
+    }
+
+    .mission-item .action-buttons .delete-btn {
+      background-color: black;
+      color: white;
+    }
+
+    .mission-item .action-buttons .delete-btn:hover {
+      background-color: #a71d2a;
+    }
+
+    .btn-add {
+        padding: 10px 25px;
+        background-color: #000;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        border: 2px solid;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-add:hover {
+        background-color: white;
+        color: black;
+        transform: translateY(-2px);
+    }
+
+    .btn-add:active {
+        transform: translateY(1px);
+        box-shadow: none;
+    }
+
+    /* Styles pour les boutons favoris */
+    .favorite-btn {
+      background-color: #6c757d !important;
+      color: white !important;
+      border: none !important;
+      padding: 8px 15px !important;
+      border-radius: 5px !important;
+      cursor: pointer !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .favorite-btn:hover {
+      background-color: #5a6268 !important;
+      transform: translateY(-2px) !important;
+    }
+
+    .favorite-btn.favorited {
+      background-color: #ff6b6b !important;
+    }
+
+    .favorite-btn.favorited:hover {
+      background-color: #ff5252 !important;
+    }
+
+    /* Sidebar des Favoris */
+    .favorites-sidebar {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 380px;
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+      transition: right 0.3s ease;
+      z-index: 1000;
+      color: white;
+      overflow-y: auto;
+    }
+
+    .favorites-sidebar.open {
+      right: 0;
+    }
+
+    .favorites-header {
+      padding: 25px;
+      background: rgba(0,0,0,0.2);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .favorites-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .close-sidebar {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 50%;
+      transition: background 0.3s ease;
+    }
+
+    .close-sidebar:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .favorites-content {
+      padding: 20px;
+    }
+
+    .favorites-count {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* Tableau des Favoris */
+    .favorites-table-container {
+      overflow-x: auto;
+      margin-top: 20px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .favorites-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .favorites-table th {
+      background: rgba(255,255,255,0.1);
+      padding: 15px 12px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .favorites-table td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: background 0.3s ease;
+    }
+
+    .favorites-table tbody tr:hover td {
+      background: rgba(255,255,255,0.05);
+    }
+
+    .favorites-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .mission-name-cell {
+      font-weight: 600;
+      color: white;
+    }
+
+    .remove-favorite-btn {
+      background: rgba(255,107,107,0.8);
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .remove-favorite-btn:hover {
+      background: rgba(255,82,82,1);
+      transform: translateY(-1px);
+    }
+
+    .empty-favorites {
+      text-align: center;
+      padding: 40px 20px;
+      color: rgba(255,255,255,0.7);
+      display: none;
+    }
+
+    .empty-favorites i {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      opacity: 0.5;
+    }
+
+    .empty-favorites h3 {
+      margin: 0 0 10px 0;
+      color: white;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+      display: none;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    /* Styles pour les missions */
+    .missions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+   .mission-item {
+  background-color: #1a1a1a;
+  padding: 15px;
   border-radius: 10px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  position: relative;
-  color: #000;
-  text-align: center;
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+    .mission-item:hover {
+      transform: translateY(-5px);
+    }
 
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 25px;
-  cursor: pointer;
-  color: #333;
-}
+    .mission-gallery {
+      position: relative;
+      height: 200px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
 
-.mission-item .action-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.mission-item .action-buttons button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s;
-}
-
-.mission-item .action-buttons .edit-btn {
-  background-color:black;
-  color: white;
-}
-
-.mission-item .action-buttons .edit-btn:hover {
-  background-color:#007bff;
-}
-
-.mission-item .action-buttons .delete-btn {
-  background-color: black;
-  color: white;
-}
-
-.mission-item .action-buttons .delete-btn:hover {
-  background-color: #a71d2a;
-}
-/* Design dyal button Ajouter Mission */
-.btn-add {
-    padding: 10px 25px;
-    background-color: #000;   /* noir */
-    color: #fff;              /* texte blanc */
-    font-size: 16px;
-    font-weight: 600;
-    border: 2px solid ; /* contour bleu */
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px; /* espace entre l'icône et le texte */
-}
-
-.btn-add:hover {
-    background-color: white; /* bleu quand hover */
-    color: black;
-    transform: translateY(-2px);
-    ;
-}
-
-.btn-add:active {
-    transform: translateY(1px);
-    box-shadow: none;
-}
-/* Styles pour les boutons favoris */
-.favorite-btn {
-  background-color: #6c757d !important;
-  color: white !important;
-  border: none !important;
-  padding: 8px 15px !important;
-  border-radius: 5px !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-}
-
-.favorite-btn:hover {
-  background-color: #5a6268 !important;
-  transform: translateY(-2px) !important;
-}
-
-.favorite-btn.favorited {
-  background-color: #ff6b6b !important;
-}
-
-.favorite-btn.favorited:hover {
-  background-color: #ff5252 !important;
-}
-
-/* Section favoris */
-#favoritesSection {
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  border: 2px solid rgba(255,255,255,0.1);
-}
-
-#favoritesGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 25px;
-  margin-top: 20px;
-}
-
-    </style>
-
-  </head>
+    .mission-gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
 <body>
-
-
-         
   <!-- 🌌 Navbar -->
- <header class="site-header">
-        <div class="top-bar">
-            <div class="top-bar-left">
-                <img src="images/logo.png" alt="logo">
-            </div>
-            <div class="top-bar-right">
-                <div>
-                    <input type="search" class="search-field" placeholder="Search space...">
-                </div>
-                <div class="lang-select">
-                    <select name="language">
-                        <option value="en">English</option>
-                        <option value="fr">Français</option>
-                        <option value="ar">العربية</option>
-                    </select>
-                </div>
-               
-            </div>
+  <header class="site-header">
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <img src="images/logo.png" alt="logo">
+      </div>
+      <div class="top-bar-right">
+        <div>
+          <input type="search" class="search-field" placeholder="Search space...">
         </div>
-        <div class="bottom-bar">
-           
-           <ul>
-          <li><a href="index.html">Accueil</a></li>
-          <li><a href="missions.html"class="active">Missions</a></li>
-          <li><a href="planet.html">Planets</a></li>
-          <li><a href="about.html" >About us</a></li>
-          <li><a href="contact_us.html">Contact</a></li>
-        </ul>
+        <div class="lang-select">
+          <select name="language">
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="ar">العربية</option>
+          </select>
         </div>
+      </div>
+    </div>
+    <div class="bottom-bar">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="missions.html" class="active">Missions</a></li>
+        <li><a href="planet.html">Planets</a></li>
+        <li><a href="about.html">About us</a></li>
+        <li><a href="contact_us.html">Contact</a></li>
+      </ul>
+    </div>
+  </header>
 
-    </header>
+  <section class="hero-section" style="height:100vh; background-image:url('images/missionnnnn.png'); background-size:cover; background-position:center;">
+    <div class="hero-content">
+      <h1 class="hero-title">Our Mission</h1>
+      <p class="animated-text">
+        We aim to inspire the next generation of explorers through science
+        and space education.
+      </p>
+      <a href="https://www.nasa.gov/missions/" class="btn-primary">Learn More</a>
+    </div>
+  </section>
 
- <body>
-<section class="hero-section" style="height:100vh; background-image:url('images/missionnnnn.png'); background-size:cover; background-position:center;">
-  <div class="hero-content">
-    <h1 class="hero-title" >Our Mission</h1>
-    <p class="animated-text">
-      We aim to inspire the next generation of explorers through science
-      and space education.
-    </p>
-    <a href="https://www.nasa.gov/missions/" class="btn-primary">Learn More</a>
+  <!-- Boutons d'action -->
+  <div style="display: flex; justify-content: center; gap: 15px; margin: 20px;">
+    <button id="addMissionBtn" class="btn-add">➕ Ajouter Mission</button>
+    <button id="showFavoritesBtn" class="btn-add" style="background-color: #ff6b6b;">
+      <i class="fas fa-heart"></i> Voir les Favoris
+    </button>
   </div>
-</section>
-<button id="addMissionBtn" class="btn-add">➕ Ajouter Mission</button>
 
-<div class="filters">
-  <input type="text" id="searchInput" placeholder="Rechercher par nom, agence ou date">
-  <select id="agenceFilter"><option  value="">Toutes les agences</option></select>
-  <select id="anneeFilter"><option value="">Toutes les années</option></select>
-  <select id="typeFilter"><option value="">Tous les types</option></select> 
-</div>
+  <div class="filters">
+    <input type="text" id="searchInput" placeholder="Rechercher par nom, agence ou date">
+    <select id="agenceFilter"><option value="">Toutes les agences</option></select>
+    <select id="anneeFilter"><option value="">Toutes les années</option></select>
+    <select id="typeFilter"><option value="">Tous les types</option></select> 
+  </div>
 
-<section class="missions-page">
+  <section class="missions-page">
+    <div class="missions-grid" id="missionsGrid"></div>
+  </section>
 
-  <div class="missions-grid" id="missionsGrid"></div>
-</section>
+  <!-- Sidebar des Favoris -->
+  <div class="overlay" id="overlay"></div>
+  <div class="favorites-sidebar" id="favoritesSidebar">
+    <div class="favorites-header">
+      <h2><i class="fas fa-heart"></i> Mes Favoris</h2>
+      <button class="close-sidebar" id="closeSidebar">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="favorites-content">
+      <div class="favorites-count" id="favoritesCount">
+        <!-- Le compteur sera mis à jour par JavaScript -->
+      </div>
+      
+      <!-- Tableau des favoris -->
+      <div class="favorites-table-container">
+        <table class="favorites-table">
+          <thead>
+            <tr>
+              <th>Mission</th>
+              <th>Agence</th>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="favoritesTableBody">
+            <!-- Les lignes du tableau seront générées par JavaScript -->
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Message quand aucun favori -->
+      <div class="empty-favorites" id="emptyFavorites">
+        <i class="fas fa-heart-broken"></i>
+        <h3>Aucune mission favorite</h3>
+        <p>Ajoutez des missions à vos favoris pour les voir ici</p>
+      </div>
+    </div>
+  </div>
 
-<div id="missionMod" class="mod" style="display:none;">
+  <!-- Modal pour ajouter/modifier mission -->
+  <div id="missionMod" class="mod" style="display:none;">
     <div class="mod-content">
       <span id="closeMissionMod" class="close-btn">&times;</span>
       <h3 id="modalTitle">Nouvelle Mission</h3>
@@ -392,7 +599,6 @@
         <input type="text" id="missionDate" placeholder="Date" required><br>
         <input type="text" id="missionType" placeholder="Type" required><br>
         <textarea id="missionDesc" placeholder="Description"></textarea><br>
-       
         <label for="missionImageFile" style="display: block; margin: 10px 0; font-weight: bold;">
           Ajouter une image
         </label>
@@ -403,18 +609,9 @@
       </form>
     </div>
   </div>
-  <div id="messageBox" style="position:fixed; top:20px; left:50%; transform:translateX(-50%); background-color:#ff4d4f; color:white; padding:10px 20px; border-radius:5px; display:none; z-index:1000;"></div>
-<!-- Section Favoris -->
-<section id="favoritesSection" style="display: none; margin: 40px 0; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; color: white;">
-  <div style="text-align: center;">
-    <h2 style="color: white; margin-bottom: 30px; font-size: 2rem;">
-      <i class="fas fa-heart" style="color: #ff6b6b;"></i> Mes Missions Favorites
-    </h2>
-    <div id="favoritesGrid" class="missions-grid"></div>
-  </div>
-</section>
-<!-- Modal -->
-<div id="missionModal" class="modal" style="display:none;">
+
+  <!-- Modal pour voir mission -->
+  <div id="missionModal" class="modal" style="display:none;">
     <div class="modal-content">
       <span id="closeMissionModal" class="close-btn">&times;</span>
       <h3 id="modalTitleView"></h3>
@@ -422,705 +619,382 @@
     </div>
   </div>
 
-<script>
-let missions = JSON.parse(localStorage.getItem("missions")) || [
-  {
-    "name": "Apollo 11",
-    "agency": "NASA",
-    "date": "16 Juillet 1969",
-    "description": "Première mission lunaire habitée",
-    "type": "Exploration lunaire",
-    "images": ["images/applo1.PNG","images/appolo2.PNG","images/appolo3.PNG","images/appolo6.PNG"]
-  },
-  {
-    "name": "Curiosity",
-    "agency": "NASA",
-    "date": "26 Novembre 2011",
-    "description": "Curiosity explore Mars depuis 2012 pour rechercher des traces de vie passée.",
-    "type": "Exploration planétaire",
-    "images": ["images/Ca.PNG","images/Ca1.PNG","images/Ca2.PNG","images/Ca3.PNG"]
-  },
-  {
-    "name": "Artemis I",
-    "agency": "NASA",
-    "date": "16 Novembre 2022",
-    "description": "Artemis I est la première mission du programme Artemis pour retourner sur la Lune.",
-    "type": "Exploration lunaire",
-    "images": ["images/ar.PNG","images/ai1.PNG","images/ai2.PNG","images/ia3.PNG"]
-  },
-  {
-    "name": "James Webb",
-    "agency": "NASA / ESA",
-    "date": "25 Décembre 2021",
-    "description": "Le télescope spatial James Webb observe l'univers dans l'infrarouge pour étudier les premières galaxies.",
-    "type": "Télescopes spatiaux",
-    "images": ["images/jem.PNG","images/43.PNG","images/41.PNG","images/42.PNG"]
-  },
-  {
-    "name": "Hubble",
-    "agency": "NASA / ESA",
-    "date": "24 Avril 1990",
-    "description": "Hubble est un télescope spatial qui observe l'univers depuis 1990.",
-    "type": "Télescopes spatiaux",
-    "images": ["images/H.PNG","images/51.PNG","images/52.PNG","images/53.PNG"]
-  },
-  {
-    "name": "Rosetta",
-    "agency": "ESA",
-    "date": "2 Mars 2004",
-    "description": "Rosetta a étudié la comète 67P et a largué le module Philae.",
-    "type": "Comètes/Astéroïdes",
-    "images": ["images/RO.PNG","images/61.PNG","images/62.PNG","images/63.PNG"]
-  },
-  {
-    "name": "Voyager 1",
-    "agency": "NASA",
-    "date": "5 Septembre 1977",
-    "description": "Voyager 1 explore les confins du système solaire et l'espace interstellaire.",
-    "type": "Exploration planétaire",
-    "images": ["images/V11.PNG","images/71.PNG","images/72.PNG","images/73.PNG"]
-  },
-  {
-    "name": "Voyager 2",
-    "agency": "NASA",
-    "date": "20 Août 1977",
-    "description": "Voyager 2 explore les planètes extérieures et le milieu interstellaire.",
-    "type": "Exploration planétaire",
-    "images": ["images/V22.PNG","images/81.PNG","images/82.PNG","images/83.PNG"]
-  },
-  {
-    "name": "Juno",
-    "agency": "NASA",
-    "date": "5 Août 2011",
-    "description": "Juno orbite autour de Jupiter pour étudier son atmosphère et son champ magnétique.",
-    "type": "Exploration planétaire",
-    "images": ["images/JJ.PNG","images/91.PNG","images/92.PNG","images/93.PNG"]
-  },
-  {
-    "name": "Kepler",
-    "agency": "NASA",
-    "date": "7 Mars 2009",
-    "description": "Kepler a découvert des milliers de planètes extrasolaires dans notre galaxie.",
-    "type": "Exploration planétaire",
-    "images": ["images/K.PNG","images/101.PNG","images/102.PNG","images/103.PNG"]
-  },
-  {
-    "name": "New Horizons",
-    "agency": "NASA",
-    "date": "19 Janvier 2006",
-    "description": "New Horizons a survolé Pluton et la ceinture de Kuiper.",
-    "type": "Exploration planétaire",
-    "images": ["images/PS.PNG","images/111.PNG","images/112.PNG","images/113.PNG"]
-  },
-  {
-    "name": "ISS",
-    "agency": "NASA / Roscosmos / ESA",
-    "date": "1998",
-    "description": "International Space Station, laboratoire orbital en coopération internationale.",
-    "type": "Satellites/Station orbitale",
-    "images": ["images/SS.PNG","images/121.PNG","images/122.PNG","images/123.PNG"]
-  },
-  {
-    "name": "Perseverance",
-    "agency": "NASA",
-    "date": "30 Juillet 2020",
-    "description": "Mars 2020, avec le rover Perseverance, explore la surface de Mars.",
-    "type": "Exploration planétaire",
-    "images": ["images/PP.PNG","images/131.PNG","images/132.PNG","images/133.PNG"]
-  },
-  {
-    "name": "Dragon Crew",
-    "agency": "SpaceX / NASA",
-    "date": "30 Mai 2020",
-    "description": "Dragon Crew transporte les astronautes vers l'ISS.",
-    "type": "Satellites/Station orbitale",
-    "images": ["images/D.PNG","images/141.PNG","images/142.PNG","images/143.PNG"]
-  },
-  {
-    "name": "Tianwen-1",
-    "agency": "CNSA",
-    "date": "23 Juillet 2020",
-    "description": "Tianwen-1 explore Mars avec le rover Zhurong.",
-    "type": "Exploration planétaire",
-    "images": ["images/15.PNG","images/151.PNG","images/152.PNG","images/153.PNG"]
-  },
-  {
-    "name": "Hayabusa2",
-    "agency": "JAXA",
-    "date": "3 Décembre 2014",
-    "description": "Hayabusa2 a étudié et ramené des échantillons de l'astéroïde Ryugu.",
-    "type": "Comètes/Astéroïdes",
-    "images": ["images/KKK.PNG","images/161.PNG","images/162.PNG","images/163.PNG"]
-  },
-  {
-    "name": "ExoMars TGO",
-    "agency": "ESA / Roscosmos",
-    "date": "14 Mars 2016",
-    "description": "ExoMars Trace Gas Orbiter étudie l'atmosphère martienne et la recherche de gaz trace.",
-    "type": "Exploration planétaire",
-    "images": ["images/17.PNG","images/171.PNG","images/172.PNG","images/173.PNG"]
-  },
-  {
-    "name": "Parker Solar Probe",
-    "agency": "NASA",
-    "date": "12 Août 2018",
-    "description": "Parker Solar Probe étudie le Soleil de très près.",
-    "type": "Missions solaires",
-    "images": ["images/PARKER.PNG","images/181.PNG","images/182.PNG","images/183.PNG"]
-  },
-  {
-    "name": "OSIRIS-REx",
-    "agency": "NASA",
-    "date": "8 Septembre 2016",
-    "description": "OSIRIS-REx a collecté des échantillons de l'astéroïde Bennu et les a ramenés sur Terre.",
-    "type": "Comètes/Astéroïdes",
-    "images": ["images/18.PNG","images/191.PNG","images/192.PNG","images/193.PNG"]
-  },
-  {
-    "name": "Chang'e 4",
-    "agency": "CNSA",
-    "date": "7 Décembre 2018",
-    "description": "Chang'e 4 est la première mission à alunir sur la face cachée de la Lune.",
-    "type": "Exploration lunaire",
-    "images": ["images/20.PNG","images/201.PNG","images/202.PNG","images/203.PNG"]
-  },
-  {
-    "name": "Able 1",
-    "agency": "NASA",
-    "date": "11 Août 1958",
-    "description": "Able 1 (ou Pioneer 1) était une mission américaine de la NASA visant à tester le lancement d'un satellite lunaire. Elle a été lancée le 11 août 1958, mais n'a pas atteint la Lune.",
-    "type": "Exploration lunaire",
-    "images": ["images/21.PNG","images/211.PNG","images/212.PNG","images/213.PNG"]
-  }
-];
-
-function saveMissions(){ localStorage.setItem("missions", JSON.stringify(missions)); }
-
-// --- Système de Favoris ---
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-function saveFavorites() {
-  localStorage.setItem("favorites", JSON.stringify(favorites));
-}
-
-// --- Références DOM ---
-const container=document.getElementById("missionsGrid");
-const searchInput=document.getElementById("searchInput");
-const filterAgency=document.getElementById("agenceFilter");
-const filterYear=document.getElementById("anneeFilter");
-const filterType=document.getElementById("typeFilter");
-const missionMod=document.getElementById("missionMod");
-const missionModal=document.getElementById("missionModal");
-const missionForm=document.getElementById("missionForm");
-const nameInput=document.getElementById("missionName");
-const agencyInput=document.getElementById("missionAgency");
-const dateInput=document.getElementById("missionDate");
-const typeInput=document.getElementById("missionType");
-const descInput=document.getElementById("missionDesc");
-let editingIndex=null;
-
-// --- Message simple ---
-function showMessage(msg,type){
-  const messageDiv=document.createElement("div");
-  messageDiv.textContent=msg;
-  messageDiv.style.position="fixed"; messageDiv.style.top="20px";
-  messageDiv.style.left="50%"; messageDiv.style.transform="translateX(-50%)";
-  messageDiv.style.padding="10px 20px"; messageDiv.style.backgroundColor=type==="success"?"green":"red";
-  messageDiv.style.color="white"; messageDiv.style.borderRadius="5px"; messageDiv.style.zIndex="1000";
-  document.body.appendChild(messageDiv);
-  setTimeout(()=>messageDiv.remove(),3000);
-}
-
-// --- Affichage missions ---
-function displayMissions(list){
-  container.innerHTML="";
-  list.forEach((m,index)=>{
-    const div=document.createElement("div");
-    div.classList.add("mission-item");
-
-    let galleryHTML=`<div class="mission-gallery" data-index="${index}">`;
-    m.images.forEach((img,i)=>{ galleryHTML+=`<img src="${img}" class="${i===0?'active':''}" alt="${m.name}">`; });
-    galleryHTML+=`</div>`;
-
-    const isFavorite = favorites.includes(m.name);
-    
-    div.innerHTML=`${galleryHTML}
-      <h3>${m.name}</h3>
-      <p><strong>Agence:</strong> ${m.agency}</p>
-      <p><strong>Date:</strong> ${m.date}</p>
-      <div class="action-buttons">
-        <button class="favorite-btn ${isFavorite ? 'favorited' : ''}" title="${isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}">
-          <i class="fas ${isFavorite ? 'fa-heart' : 'fa-heart'}" style="${isFavorite ? 'color: #ff6b6b;' : 'color: #ccc;'}"></i> ${isFavorite ? 'Favori' : 'Favoris'}
-        </button>
-        <button class="edit-btn" title="Editer"><i class="fas fa-edit"></i> Edit</button>
-        <button class="delete-btn" title="Supprimer"><i class="fas fa-trash-alt"></i> Supprimer</button>
-      </div>`;
-
-    container.appendChild(div);
-
-    // Bouton favoris
-    div.querySelector(".favorite-btn").onclick=(e)=>{
-      e.stopPropagation();
-      toggleFavorite(m.name, index);
-    };
-
-    // Edit
-    div.querySelector(".edit-btn").onclick=(e)=>{ 
-      e.stopPropagation(); 
-      editingIndex=index; 
-      nameInput.value=m.name; 
-      agencyInput.value=m.agency; 
-      dateInput.value=m.date; 
-      typeInput.value=m.type; 
-      descInput.value=m.description; 
-      document.getElementById("modalTitle").textContent="Modifier Mission"; 
-      missionMod.style.display="flex"; 
-    };
-    
-    // Delete
-    div.querySelector(".delete-btn").onclick=(e)=>{ 
-      e.stopPropagation(); 
-      // Retirer aussi des favoris si la mission est supprimée
-      if(favorites.includes(m.name)){
-        favorites=favorites.filter(fav=>fav!==m.name);
-        saveFavorites();
+  <script>
+    // Données des missions
+    let missions = JSON.parse(localStorage.getItem("missions")) || [
+      {
+        "name": "Apollo 11",
+        "agency": "NASA",
+        "date": "16 Juillet 1969",
+        "description": "Première mission lunaire habitée",
+        "type": "Exploration lunaire",
+        "images": ["images/applo1.PNG","images/appolo2.PNG","images/appolo3.PNG","images/appolo6.PNG"]
+      },
+      {
+        "name": "Curiosity",
+        "agency": "NASA",
+        "date": "26 Novembre 2011",
+        "description": "Curiosity explore Mars depuis 2012 pour rechercher des traces de vie passée.",
+        "type": "Exploration planétaire",
+        "images": ["images/Ca.PNG","images/Ca1.PNG","images/Ca2.PNG","images/Ca3.PNG"]
+      },
+      {
+        "name": "Artemis I",
+        "agency": "NASA",
+        "date": "16 Novembre 2022",
+        "description": "Artemis I est la première mission du programme Artemis pour retourner sur la Lune.",
+        "type": "Exploration lunaire",
+        "images": ["images/ar.PNG","images/ai1.PNG","images/ai2.PNG","images/ia3.PNG"]
       }
-      missions.splice(index,1); 
-      saveMissions(); 
-      applyCombinedFilters(); 
-      showMessage("Suppression réussie !","success"); 
-    };
-    
-    // Modal view
-    div.addEventListener("click",()=>{ document.getElementById("modalTitleView").textContent=m.name; document.getElementById("modalDescriptionView").textContent=m.description; missionModal.style.display="flex"; });
-  });
+    ];
 
-  document.getElementById("closeMissionModal").onclick=()=>missionModal.style.display="none";
-  document.getElementById("closeMissionMod").onclick=()=>missionMod.style.display="none";
-  window.onclick=(e)=>{ if(e.target===missionModal) missionModal.style.display="none"; if(e.target===missionMod) missionMod.style.display="none"; };
-}
+    // Système de favoris
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-// --- Filtres ---
-function populateFilters(){
-  const agencies=[...new Set(missions.map(m=>m.agency))]; agencies.forEach(a=>{ const opt=document.createElement("option"); opt.value=a; opt.textContent=a; filterAgency.appendChild(opt); });
-  const years=[...new Set(missions.map(m=>m.date.match(/\d{4}/)?.[0]).filter(y=>y))]; years.sort((a,b)=>b-a).forEach(y=>{ const opt=document.createElement("option"); opt.value=y; opt.textContent=y; filterYear.appendChild(opt); });
-  const types=[...new Set(missions.map(m=>m.type))]; types.forEach(t=>{ const opt=document.createElement("option"); opt.value=t; opt.textContent=t; filterType.appendChild(opt); });
-}
-
-function applyCombinedFilters(){
-  const text=searchInput.value.toLowerCase().trim();
-  const agency=filterAgency.value; const year=filterYear.value; const type=filterType.value;
-  const filtered=missions.filter(m=>{
-    const textMatch=!text || m.name.toLowerCase().includes(text) || m.description.toLowerCase().includes(text) || m.date.toLowerCase().includes(text) || m.agency.toLowerCase().includes(text) || m.type.toLowerCase().includes(text);
-    const agencyMatch=!agency || m.agency===agency;
-    const yearMatch=!year || m.date.includes(year);
-    const typeMatch=!type || m.type===type;
-    return textMatch && agencyMatch && yearMatch && typeMatch;
-  });
-  displayMissions(filtered);
-}
-
-searchInput.addEventListener("input",applyCombinedFilters);
-filterAgency.addEventListener("change",applyCombinedFilters);
-filterYear.addEventListener("change",applyCombinedFilters);
-filterType.addEventListener("change",applyCombinedFilters);
-
-// --- Debounce search ---
-function debounce(func,delay){ let timeout; return function(...args){ clearTimeout(timeout); timeout=setTimeout(()=>func.apply(this,args),delay); }; }
-searchInput.addEventListener("input",debounce(applyCombinedFilters,300));
-
-// --- Ajouter mission ---
-document.getElementById("addMissionBtn").onclick=()=>{
-  editingIndex=null;
-  missionForm.reset();
-  document.getElementById("modalTitle").textContent="Nouvelle Mission";
-  missionMod.style.display="flex";
-};
-
-// --- Form submit - AVEC CHAMP UPLOAD POUR IMAGES ---
-missionForm.addEventListener("submit",(e)=>{
-  e.preventDefault();
-
-  // Récupérer le fichier image uploadé
-  const imageFileInput = document.getElementById("missionImageFile");
-  const imageFile = imageFileInput ? imageFileInput.files[0] : null;
-
-  // CORRECTION : Conserver les images existantes lors de l'édition
-  if(editingIndex !== null) {
-    // En mode édition, conserver les images originales
-    const existingImages = missions[editingIndex].images;
-    
-    // Si un nouveau fichier est uploadé, le convertir en URL et l'ajouter
-    let updatedImages = existingImages;
-    if (imageFile) {
-      const newImageUrl = URL.createObjectURL(imageFile);
-      updatedImages = [...existingImages, newImageUrl];
+    // Fonctions de sauvegarde
+    function saveMissions() { 
+      localStorage.setItem("missions", JSON.stringify(missions)); 
     }
-    
-    const newMission = { 
-      name: nameInput.value.trim(), 
-      agency: agencyInput.value.trim(), 
-      date: dateInput.value.trim(), 
-      type: typeInput.value.trim(), 
-      description: descInput.value.trim(), 
-      images: updatedImages
-    };
-    
-    missions[editingIndex] = newMission;
-    showMessage("Modification réussie !", "success");
-  } 
-  // Si c'est une nouvelle mission
-  else {
-    let images = ["images/default.png"];
-    if (imageFile) {
-      const newImageUrl = URL.createObjectURL(imageFile);
-      images = [newImageUrl];
+
+    function saveFavorites() { 
+      localStorage.setItem("favorites", JSON.stringify(favorites)); 
     }
-    
-    const newMission = { 
-      name: nameInput.value.trim(), 
-      agency: agencyInput.value.trim(), 
-      date: dateInput.value.trim(), 
-      type: typeInput.value.trim(), 
-      description: descInput.value.trim(), 
-      images: images
-    };
-    
-    missions.push(newMission);
-    showMessage("Ajout réussi !", "success");
-  }
 
-  saveMissions();
-  applyCombinedFilters();
-  missionMod.style.display="none"; 
-});
+    // Références DOM
+    const container = document.getElementById("missionsGrid");
+    const searchInput = document.getElementById("searchInput");
+    const filterAgency = document.getElementById("agenceFilter");
+    const filterYear = document.getElementById("anneeFilter");
+    const filterType = document.getElementById("typeFilter");
+    const missionMod = document.getElementById("missionMod");
+    const missionModal = document.getElementById("missionModal");
+    const missionForm = document.getElementById("missionForm");
+    const nameInput = document.getElementById("missionName");
+    const agencyInput = document.getElementById("missionAgency");
+    const dateInput = document.getElementById("missionDate");
+    const typeInput = document.getElementById("missionType");
+    const descInput = document.getElementById("missionDesc");
+    const showFavoritesBtn = document.getElementById("showFavoritesBtn");
+    const favoritesSidebar = document.getElementById("favoritesSidebar");
+    const closeSidebar = document.getElementById("closeSidebar");
+    const overlay = document.getElementById("overlay");
+    const favoritesTableBody = document.getElementById("favoritesTableBody");
+    const favoritesCount = document.getElementById("favoritesCount");
+    const emptyFavorites = document.getElementById("emptyFavorites");
 
-// --- Système de Favoris ---
-function toggleFavorite(missionName, missionIndex) {
-  const index = favorites.indexOf(missionName);
-  
-  if (index === -1) {
-    // Ajouter aux favoris
-    favorites.push(missionName);
-    showMessage("Mission ajoutée aux favoris !", "success");
-  } else {
-    // Retirer des favoris
-    favorites.splice(index, 1);
-    showMessage("Mission retirée des favoris !", "success");
-  }
-  
-  saveFavorites();
-  applyCombinedFilters(); // Re-afficher pour mettre à jour les boutons
-  displayFavorites(); // Mettre à jour la section favoris
-}
+    let editingIndex = null;
 
-function displayFavorites() {
-  const favoritesSection = document.getElementById("favoritesSection");
-  const favoritesGrid = document.getElementById("favoritesGrid");
-  
-  const favoriteMissions = missions.filter(mission => favorites.includes(mission.name));
-  
-  if (favoriteMissions.length === 0) {
-    favoritesGrid.innerHTML = "<p style='text-align: center; color: #666;'>Aucune mission favorite pour le moment.</p>";
-    favoritesSection.style.display = "none";
-  } else {
-    let favoritesHTML = "";
-    favoriteMissions.forEach((mission, index) => {
-      const originalIndex = missions.findIndex(m => m.name === mission.name);
-      
-      favoritesHTML += `
-        <div class="mission-item">
-          <div class="mission-gallery" data-index="${originalIndex}">
-            ${mission.images.map((img, i) => 
-              `<img src="${img}" class="${i === 0 ? 'active' : ''}" alt="${mission.name}">`
-            ).join('')}
-          </div>
-          <h3>${mission.name}</h3>
-          <p><strong>Agence:</strong> ${mission.agency}</p>
-          <p><strong>Date:</strong> ${mission.date}</p>
+    // Fonction pour afficher les messages
+    function showMessage(msg, type) {
+      const messageDiv = document.createElement("div");
+      messageDiv.textContent = msg;
+      messageDiv.style.position = "fixed";
+      messageDiv.style.top = "20px";
+      messageDiv.style.left = "50%";
+      messageDiv.style.transform = "translateX(-50%)";
+      messageDiv.style.padding = "10px 20px";
+      messageDiv.style.backgroundColor = type === "success" ? "green" : "red";
+      messageDiv.style.color = "white";
+      messageDiv.style.borderRadius = "5px";
+      messageDiv.style.zIndex = "1000";
+      document.body.appendChild(messageDiv);
+      setTimeout(() => messageDiv.remove(), 3000);
+    }
+
+    // Fonction pour afficher les missions
+    function displayMissions(list) {
+      container.innerHTML = "";
+      list.forEach((m, index) => {
+        const div = document.createElement("div");
+        div.classList.add("mission-item");
+
+        let galleryHTML = `<div class="mission-gallery" data-index="${index}">`;
+        m.images.forEach((img, i) => { 
+          galleryHTML += `<img src="${img}" class="${i === 0 ? 'active' : ''}" alt="${m.name}">`; 
+        });
+        galleryHTML += `</div>`;
+
+        const isFavorite = favorites.includes(m.name);
+        
+        div.innerHTML = `${galleryHTML}
+          <h3>${m.name}</h3>
+          <p><strong>Agence:</strong> ${m.agency}</p>
+          <p><strong>Date:</strong> ${m.date}</p>
           <div class="action-buttons">
-            <button class="favorite-btn favorited" title="Retirer des favoris" onclick="removeFromFavorites('${mission.name}')">
-              <i class="fas fa-heart" style="color: #ff6b6b;"></i> Retirer
+            <button class="favorite-btn ${isFavorite ? 'favorited' : ''}" title="${isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}">
+              <i class="fas fa-heart" style="${isFavorite ? 'color: #ff6b6b;' : 'color: #ccc;'}"></i> ${isFavorite ? 'Favori' : 'Favoris'}
             </button>
-          </div>
-        </div>
-      `;
-    });
-    favoritesGrid.innerHTML = favoritesHTML;
-    favoritesSection.style.display = "block";
-  }
-}
+            <button class="edit-btn" title="Editer"><i class="fas fa-edit"></i> Edit</button>
+            <button class="delete-btn" title="Supprimer"><i class="fas fa-trash-alt"></i> Supprimer</button>
+          </div>`;
 
-function removeFromFavorites(missionName) {
-  favorites = favorites.filter(fav => fav !== missionName);
-  saveFavorites();
-  displayFavorites();
-  applyCombinedFilters(); // Mettre à jour la liste principale
-  showMessage("Mission retirée des favoris !", "success");
-}
+        container.appendChild(div);
 
-// Ajouter un bouton pour afficher/masquer les favoris
-function addFavoritesToggle() {
-  const favoritesToggle = document.createElement("button");
-  favoritesToggle.id = "toggleFavorites";
-  favoritesToggle.innerHTML = '<i class="fas fa-heart"></i> Voir les Favoris';
-  favoritesToggle.classList.add("btn-add");
-  favoritesToggle.style.backgroundColor = "#ff6b6b";
-  favoritesToggle.style.marginLeft = "10px";
-  
-  favoritesToggle.addEventListener("click", function() {
-    const favoritesSection = document.getElementById("favoritesSection");
-    if (favoritesSection.style.display === "none") {
-      favoritesSection.style.display = "block";
-      this.innerHTML = '<i class="fas fa-heart"></i> Masquer les Favoris';
-      displayFavorites();
-    } else {
-      favoritesSection.style.display = "none";
-      this.innerHTML = '<i class="fas fa-heart"></i> Voir les Favoris';
+        // Bouton favoris
+        div.querySelector(".favorite-btn").onclick = (e) => {
+          e.stopPropagation();
+          toggleFavorite(m.name);
+        };
+
+        // Edit
+        div.querySelector(".edit-btn").onclick = (e) => { 
+          e.stopPropagation(); 
+          editingIndex = index; 
+          nameInput.value = m.name; 
+          agencyInput.value = m.agency; 
+          dateInput.value = m.date; 
+          typeInput.value = m.type; 
+          descInput.value = m.description; 
+          document.getElementById("modalTitle").textContent = "Modifier Mission"; 
+          missionMod.style.display = "flex"; 
+        };
+        
+        // Delete
+        div.querySelector(".delete-btn").onclick = (e) => { 
+          e.stopPropagation(); 
+          // Retirer aussi des favoris si la mission est supprimée
+          if (favorites.includes(m.name)) {
+            favorites = favorites.filter(fav => fav !== m.name);
+            saveFavorites();
+            updateFavoritesTable();
+          }
+          missions.splice(index, 1); 
+          saveMissions(); 
+          applyCombinedFilters(); 
+          showMessage("Suppression réussie !", "success"); 
+        };
+        
+        // Modal view
+        div.addEventListener("click", () => { 
+          document.getElementById("modalTitleView").textContent = m.name; 
+          document.getElementById("modalDescriptionView").textContent = m.description; 
+          missionModal.style.display = "flex"; 
+        });
+      });
+
+      // Fermeture des modals
+      document.getElementById("closeMissionModal").onclick = () => missionModal.style.display = "none";
+      document.getElementById("closeMissionMod").onclick = () => missionMod.style.display = "none";
+      window.onclick = (e) => { 
+        if (e.target === missionModal) missionModal.style.display = "none"; 
+        if (e.target === missionMod) missionMod.style.display = "none"; 
+      };
     }
-  });
-  
-  const addBtn = document.getElementById("addMissionBtn");
-  addBtn.parentNode.insertBefore(favoritesToggle, addBtn.nextSibling);
-}
 
-// --- Initialisation ---
-document.addEventListener("DOMContentLoaded", function() {
-  addFavoritesToggle();
-  displayFavorites();
-});
+    // Fonction pour basculer les favoris
+    function toggleFavorite(missionName) {
+      const index = favorites.indexOf(missionName);
+      
+      if (index === -1) {
+        // Ajouter aux favoris
+        favorites.push(missionName);
+        showMessage("Mission ajoutée aux favoris !", "success");
+      } else {
+        // Retirer des favoris
+        favorites.splice(index, 1);
+        showMessage("Mission retirée des favoris !", "success");
+      }
+      
+      // Sauvegarder dans le localStorage
+      saveFavorites();
+      
+      // Mettre à jour l'affichage
+      applyCombinedFilters();
+      updateFavoritesTable();
+    }
 
-populateFilters();
-applyCombinedFilters();
-displayMissions(missions);
+    // Fonction pour mettre à jour le tableau des favoris
+    function updateFavoritesTable() {
+      const favoriteMissions = missions.filter(mission => favorites.includes(mission.name));
+      
+      // Mettre à jour le compteur
+      favoritesCount.textContent = `${favoriteMissions.length} Mission${favoriteMissions.length > 1 ? 's' : ''} Favorite${favoriteMissions.length > 1 ? 's' : ''}`;
+      
+      if (favoriteMissions.length === 0) {
+        // Afficher le message "Aucun favori"
+        favoritesTableBody.innerHTML = "";
+        emptyFavorites.style.display = "block";
+        document.querySelector(".favorites-table-container").style.display = "none";
+      } else {
+        // Cacher le message et afficher le tableau
+        emptyFavorites.style.display = "none";
+        document.querySelector(".favorites-table-container").style.display = "block";
+        
+        // Générer les lignes du tableau
+        let tableHTML = "";
+        favoriteMissions.forEach((mission) => {
+          tableHTML += `
+            <tr>
+              <td class="mission-name-cell">${mission.name}</td>
+              <td>${mission.agency}</td>
+              <td>${mission.date}</td>
+              <td>${mission.type}</td>
+              <td>
+                <button class="remove-favorite-btn" onclick="removeFromFavorites('${mission.name}')">
+                  <i class="fas fa-trash"></i> Retirer
+                </button>
+              </td>
+            </tr>
+          `;
+        });
+        favoritesTableBody.innerHTML = tableHTML;
+      }
+    }
 
+    // Fonction pour retirer une mission des favoris
+    function removeFromFavorites(missionName) {
+      favorites = favorites.filter(fav => fav !== missionName);
+      saveFavorites();
+      updateFavoritesTable();
+      applyCombinedFilters();
+      showMessage("Mission retirée des favoris !", "success");
+    }
 
+    // Filtres
+    function populateFilters() {
+      const agencies = [...new Set(missions.map(m => m.agency))]; 
+      agencies.forEach(a => { 
+        const opt = document.createElement("option"); 
+        opt.value = a; 
+        opt.textContent = a; 
+        filterAgency.appendChild(opt); 
+      });
+      
+      const years = [...new Set(missions.map(m => m.date.match(/\d{4}/)?.[0]).filter(y => y))]; 
+      years.sort((a, b) => b - a).forEach(y => { 
+        const opt = document.createElement("option"); 
+        opt.value = y; 
+        opt.textContent = y; 
+        filterYear.appendChild(opt); 
+      });
+      
+      const types = [...new Set(missions.map(m => m.type))]; 
+      types.forEach(t => { 
+        const opt = document.createElement("option"); 
+        opt.value = t; 
+        opt.textContent = t; 
+        filterType.appendChild(opt); 
+      });
+    }
 
-// // Fonction pour initialiser le localStorage avec les missions
-// function initializeMissionsOnReload() {
-//   // Vérifier si le localStorage est vide ou s'il faut le réinitialiser
-//   const existingMissions = localStorage.getItem("missions");
-  
-//   if (!existingMissions || existingMissions === "[]" || confirm("Voulez-vous réinitialiser les missions ?")) {
-//     const missions = [
-//       {
-//         "name": "Apollo 11",
-//         "agency": "NASA",
-//         "date": "16 Juillet 1969",
-//         "description": "Première mission lunaire habitée",
-//         "type": "Exploration lunaire",
-//         "images": ["images/applo1.PNG","images/appolo2.PNG","images/appolo3.PNG","images/appolo6.PNG"]
-//       },
-//       {
-//         "name": "Curiosity",
-//         "agency": "NASA",
-//         "date": "26 Novembre 2011",
-//         "description": "Curiosity explore Mars depuis 2012 pour rechercher des traces de vie passée.",
-//         "type": "Exploration planétaire",
-//         "images": ["images/Ca.PNG","images/Ca1.PNG","images/Ca2.PNG","images/Ca3.PNG"]
-//       },
-//       {
-//         "name": "Artemis I",
-//         "agency": "NASA",
-//         "date": "16 Novembre 2022",
-//         "description": "Artemis I est la première mission du programme Artemis pour retourner sur la Lune.",
-//         "type": "Exploration lunaire",
-//         "images": ["images/ar.PNG","images/ai1.PNG","images/ai2.PNG","images/ia3.PNG"]
-//       },
-//       {
-//         "name": "James Webb",
-//         "agency": "NASA / ESA",
-//         "date": "25 Décembre 2021",
-//         "description": "Le télescope spatial James Webb observe l'univers dans l'infrarouge pour étudier les premières galaxies.",
-//         "type": "Télescopes spatiaux",
-//         "images": ["images/jem.PNG","images/43.PNG","images/41.PNG","images/42.PNG"]
-//       },
-//       {
-//         "name": "Hubble",
-//         "agency": "NASA / ESA",
-//         "date": "24 Avril 1990",
-//         "description": "Hubble est un télescope spatial qui observe l'univers depuis 1990.",
-//         "type": "Télescopes spatiaux",
-//         "images": ["images/H.PNG","images/51.PNG","images/52.PNG","images/53.PNG"]
-//       },
-//       {
-//         "name": "Rosetta",
-//         "agency": "ESA",
-//         "date": "2 Mars 2004",
-//         "description": "Rosetta a étudié la comète 67P et a largué le module Philae.",
-//         "type": "Comètes/Astéroïdes",
-//         "images": ["images/RO.PNG","images/61.PNG","images/62.PNG","images/63.PNG"]
-//       },
-//       {
-//         "name": "Voyager 1",
-//         "agency": "NASA",
-//         "date": "5 Septembre 1977",
-//         "description": "Voyager 1 explore les confins du système solaire et l'espace interstellaire.",
-//         "type": "Exploration planétaire",
-//         "images": ["images/V11.PNG","images/71.PNG","images/72.PNG","images/73.PNG"]
-//       },
-//       {
-//         "name": "Voyager 2",
-//         "agency": "NASA",
-//         "date": "20 Août 1977",
-//         "description": "Voyager 2 explore les planètes extérieures et le milieu interstellaire.",
-//         "type": "Exploration planétaire",
-//         "images": ["images/V22.PNG","images/81.PNG","images/82.PNG","images/83.PNG"]
-//       },
-//       {
-//         "name": "Juno",
-//         "agency": "NASA",
-//         "date": "5 Août 2011",
-//         "description": "Juno orbite autour de Jupiter pour étudier son atmosphère et son champ magnétique.",
-//         "type": "Exploration planétaire",
-//         "images": ["images/JJ.PNG","images/91.PNG","images/92.PNG","images/93.PNG"]
-//       },
-//       {
-//         "name": "Kepler",
-//         "agency": "NASA",
-//         "date": "7 Mars 2009",
-//         "description": "Kepler a découvert des milliers de planètes extrasolaires dans notre galaxie.",
-//         "type": "Exploration planétaire",
-//         "images": ["images/K.PNG","images/101.PNG","images/102.PNG","images/103.PNG"]
-//       },
-//       {
-//         "name": "New Horizons",
-//         "agency": "NASA",
-//         "date": "19 Janvier 2006",
-//         "description": "New Horizons a survolé Pluton et la ceinture de Kuiper.",
-//         "type": "Exploration planétaire",
-//         "images": ["images/PS.PNG","images/111.PNG","images/112.PNG","images/113.PNG"]
-//       },
-//       {
-//         "name": "ISS",
-//         "agency": "NASA / Roscosmos / ESA",
-//         "date": "1998",
-//         "description": "International Space Station, laboratoire orbital en coopération internationale.",
-//         "type": "Satellites/Station orbitale",
-//         "images": ["images/SS.PNG","images/121.PNG","images/122.PNG","images/123.PNG"]
-//       },
-//       {
-//         "name": "Perseverance",
-//         "agency": "NASA",
-//         "date": "30 Juillet 2020",
-//         "description": "Mars 2020, avec le rover Perseverance, explore la surface de Mars.",
-//         "type": "Exploration planétaire",
-//         "images": ["images/PP.PNG","images/131.PNG","images/132.PNG","images/133.PNG"]
-//       },
-//       {
-//         "name": "Dragon Crew",
-//         "agency": "SpaceX / NASA",
-//         "date": "30 Mai 2020",
-//         "description": "Dragon Crew transporte les astronautes vers l'ISS.",
-//         "type": "Satellites/Station orbitale",
-//         "images": ["images/D.PNG","images/141.PNG","images/142.PNG","images/143.PNG"]
-//       },
-//       {
-//         "name": "Tianwen-1",
-//         "agency": "CNSA",
-//         "date": "23 Juillet 2020",
-//         "description": "Tianwen-1 explore Mars avec le rover Zhurong.",
-//         "type": "Exploration planétaire",
-//         "images": ["images/15.PNG","images/151.PNG","images/152.PNG","images/153.PNG"]
-//       },
-//       {
-//         "name": "Hayabusa2",
-//         "agency": "JAXA",
-//         "date": "3 Décembre 2014",
-//         "description": "Hayabusa2 a étudié et ramené des échantillons de l'astéroïde Ryugu.",
-//         "type": "Comètes/Astéroïdes",
-//         "images": ["images/KKK.PNG","images/161.PNG","images/162.PNG","images/163.PNG"]
-//       },
-//       {
-//         "name": "ExoMars TGO",
-//         "agency": "ESA / Roscosmos",
-//         "date": "14 Mars 2016",
-//         "description": "ExoMars Trace Gas Orbiter étudie l'atmosphère martienne et la recherche de gaz trace.",
-//         "type": "Exploration planétaire",
-//         "images": ["images/17.PNG","images/171.PNG","images/172.PNG","images/173.PNG"]
-//       },
-//       {
-//         "name": "Parker Solar Probe",
-//         "agency": "NASA",
-//         "date": "12 Août 2018",
-//         "description": "Parker Solar Probe étudie le Soleil de très près.",
-//         "type": "Missions solaires",
-//         "images": ["images/PARKER.PNG","images/181.PNG","images/182.PNG","images/183.PNG"]
-//       },
-//       {
-//         "name": "OSIRIS-REx",
-//         "agency": "NASA",
-//         "date": "8 Septembre 2016",
-//         "description": "OSIRIS-REx a collecté des échantillons de l'astéroïde Bennu et les a ramenés sur Terre.",
-//         "type": "Comètes/Astéroïdes",
-//         "images": ["images/18.PNG","images/191.PNG","images/192.PNG","images/193.PNG"]
-//       },
-//       {
-//         "name": "Chang'e 4",
-//         "agency": "CNSA",
-//         "date": "7 Décembre 2018",
-//         "description": "Chang'e 4 est la première mission à alunir sur la face cachée de la Lune.",
-//         "type": "Exploration lunaire",
-//         "images": ["images/20.PNG","images/201.PNG","images/202.PNG","images/203.PNG"]
-//       },
-//       {
-//         "name": "Able 1",
-//         "agency": "NASA",
-//         "date": "11 Août 1958",
-//         "description": "Able 1 (ou Pioneer 1) était une mission américaine de la NASA visant à tester le lancement d'un satellite lunaire. Elle a été lancée le 11 août 1958, mais n'a pas atteint la Lune.",
-//         "type": "Exploration lunaire",
-//         "images": ["images/21.PNG","images/211.PNG","images/212.PNG","images/213.PNG"]
-//       }
-//     ];
+    function applyCombinedFilters() {
+      const text = searchInput.value.toLowerCase().trim();
+      const agency = filterAgency.value; 
+      const year = filterYear.value; 
+      const type = filterType.value;
+      
+      const filtered = missions.filter(m => {
+        const textMatch = !text || 
+          m.name.toLowerCase().includes(text) || 
+          m.description.toLowerCase().includes(text) || 
+          m.date.toLowerCase().includes(text) || 
+          m.agency.toLowerCase().includes(text) || 
+          m.type.toLowerCase().includes(text);
+        
+        const agencyMatch = !agency || m.agency === agency;
+        const yearMatch = !year || m.date.includes(year);
+        const typeMatch = !type || m.type === type;
+        
+        return textMatch && agencyMatch && yearMatch && typeMatch;
+      });
+      
+      displayMissions(filtered);
+    }
 
-//     // Sauvegarder dans le localStorage
-//     localStorage.setItem("missions", JSON.stringify(missions));
-//     console.log("Missions initialisées dans le localStorage !");
-//     alert("Missions réinitialisées avec succès !");
-    
-//     // Recharger la page pour afficher les nouvelles données
-//     location.reload();
-//   }
-// }
+    // Événements des filtres
+    searchInput.addEventListener("input", applyCombinedFilters);
+    filterAgency.addEventListener("change", applyCombinedFilters);
+    filterYear.addEventListener("change", applyCombinedFilters);
+    filterType.addEventListener("change", applyCombinedFilters);
 
-// // Ajouter un bouton pour déclencher la réinitialisation
-// function addResetButton() {
-//   const resetBtn = document.createElement("button");
-//   resetBtn.textContent = "🔄 Réinitialiser Missions";
-//   resetBtn.style.margin = "10px";
-//   resetBtn.style.padding = "8px 15px";
-//   resetBtn.style.backgroundColor = "#ff6b6b";
-//   resetBtn.style.color = "white";
-//   resetBtn.style.border = "none";
-//   resetBtn.style.borderRadius = "5px";
-//   resetBtn.style.cursor = "pointer";
-  
-//   resetBtn.addEventListener("click", initializeMissionsOnReload);
-  
-//   // Ajouter le bouton après le bouton "Ajouter Mission"
-//   const addBtn = document.getElementById("addMissionBtn");
-//   addBtn.parentNode.insertBefore(resetBtn, addBtn.nextSibling);
-// }
+    // Ajouter mission
+    document.getElementById("addMissionBtn").onclick = () => {
+      editingIndex = null;
+      missionForm.reset();
+      document.getElementById("modalTitle").textContent = "Nouvelle Mission";
+      missionMod.style.display = "flex";
+    };
 
-// // Appeler cette fonction au chargement de la page
-// document.addEventListener("DOMContentLoaded", function() {
-//   addResetButton();
-  
-//   // Optionnel: Initialiser automatiquement si le localStorage est vide
-//   const existingMissions = localStorage.getItem("missions");
-//   if (!existingMissions || existingMissions === "[]") {
-//     initializeMissionsOnReload();
-//   }
-// });
+    // Form submit
+    missionForm.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-</script>
+      const imageFileInput = document.getElementById("missionImageFile");
+      const imageFile = imageFileInput ? imageFileInput.files[0] : null;
 
+      if (editingIndex !== null) {
+        // Modification
+        const existingImages = missions[editingIndex].images;
+        let updatedImages = existingImages;
+        
+        if (imageFile) {
+          const newImageUrl = URL.createObjectURL(imageFile);
+          updatedImages = [...existingImages, newImageUrl];
+        }
+        
+        const newMission = { 
+          name: nameInput.value.trim(), 
+          agency: agencyInput.value.trim(), 
+          date: dateInput.value.trim(), 
+          type: typeInput.value.trim(), 
+          description: descInput.value.trim(), 
+          images: updatedImages
+        };
+        
+        missions[editingIndex] = newMission;
+        showMessage("Modification réussie !", "success");
+      } else {
+        // Nouvelle mission
+        let images = ["images/default.png"];
+        if (imageFile) {
+          const newImageUrl = URL.createObjectURL(imageFile);
+          images = [newImageUrl];
+        }
+        
+        const newMission = { 
+          name: nameInput.value.trim(), 
+          agency: agencyInput.value.trim(), 
+          date: dateInput.value.trim(), 
+          type: typeInput.value.trim(), 
+          description: descInput.value.trim(), 
+          images: images
+        };
+        
+        missions.push(newMission);
+        showMessage("Ajout réussi !", "success");
+      }
 
+      saveMissions();
+      applyCombinedFilters();
+      missionMod.style.display = "none"; 
+    });
 
+    // Gestion du sidebar
+    showFavoritesBtn.addEventListener('click', function() {
+      favoritesSidebar.classList.add('open');
+      overlay.classList.add('active');
+      updateFavoritesTable();
+    });
 
- </body>
+    closeSidebar.addEventListener('click', function() {
+      favoritesSidebar.classList.remove('open');
+      overlay.classList.remove('active');
+    });
 
-  <footer>
+    overlay.addEventListener('click', function() {
+      favoritesSidebar.classList.remove('open');
+      overlay.classList.remove('active');
+    });
+
+    // Initialisation
+    document.addEventListener("DOMContentLoaded", function() {
+      populateFilters();
+      applyCombinedFilters();
+      updateFavoritesTable();
+    });
+  </script>
+</body>
+<footer>
       <div class="background-footer">
         <div class="footer-top">
           <div class="footer-column">
@@ -1169,7 +1043,7 @@ displayMissions(missions);
             <a href="#">Cookies</a>
           </div>
 
-      
+        
               <div class="social-icons">
   <a href="https://www.linkedin.com" target="_blank" class="social-link">
     <i class="fab fa-linkedin"></i>
@@ -1184,8 +1058,6 @@ displayMissions(missions);
 </div>
       </div>
     </footer>
-</body>
+</html>
 
-
-
-
+</html>
